@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import projects from "@/data/projects";
@@ -17,6 +18,8 @@ import {
   HiOutlinePaintBrush,
   HiOutlineUserGroup,
   HiSparkles,
+  HiBars3,
+  HiXMark,
 } from "react-icons/hi2";
 
 const skills = {
@@ -233,6 +236,10 @@ function ProjectCard({ project }) {
 }
 
 export default function Home() {
+
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+
   return (
     <main className="min-h-screen overflow-hidden bg-[#050816] text-white">
       {/* Background glow */}
@@ -243,66 +250,133 @@ export default function Home() {
 
       {/* Navbar */}
       <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/5 bg-[#050816]/80 backdrop-blur-xl">
-        <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
-          <Link
-            href="/"
-            className="text-xl font-black tracking-tight text-white"
-          >
-            TR<span className="text-indigo-400">.</span>
-          </Link>
-
-          <div className="hidden items-center gap-8 md:flex">
-            <a
-              href="#home"
-              className="text-sm text-slate-300 transition hover:text-white"
+        <nav className="mx-auto max-w-7xl px-5 lg:px-8">
+          <div className="flex items-center justify-between py-4">
+            <Link
+              href="/"
+              className="text-xl font-black tracking-tight text-white"
+              onClick={() => setMobileMenuOpen(false)}
             >
-              Home
+              TR<span className="text-indigo-400">.</span>
+            </Link>
+
+            {/* Desktop Navigation */}
+            <div className="hidden items-center gap-8 md:flex">
+              <a
+                href="#home"
+                className="text-sm text-slate-300 transition hover:text-white"
+              >
+                Home
+              </a>
+
+              <a
+                href="#about"
+                className="text-sm text-slate-300 transition hover:text-white"
+              >
+                About
+              </a>
+
+              <a
+                href="#skills"
+                className="text-sm text-slate-300 transition hover:text-white"
+              >
+                Skills
+              </a>
+
+              <a
+                href="#projects"
+                className="text-sm text-slate-300 transition hover:text-white"
+              >
+                Projects
+              </a>
+
+              <a
+                href="#exploring"
+                className="text-sm text-slate-300 transition hover:text-white"
+              >
+                Exploring
+              </a>
+
+              <a
+                href="#contact"
+                className="text-sm text-slate-300 transition hover:text-white"
+              >
+                Contact
+              </a>
+            </div>
+
+            {/* Desktop Resume */}
+            <a
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden rounded-full border border-indigo-400/30 bg-indigo-500/10 px-5 py-2 text-sm font-semibold text-indigo-300 transition hover:bg-indigo-500/20 sm:inline-flex md:hidden"
+            >
+              Resume
             </a>
 
             <a
-              href="#about"
-              className="text-sm text-slate-300 transition hover:text-white"
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden rounded-full border border-indigo-400/30 bg-indigo-500/10 px-5 py-2 text-sm font-semibold text-indigo-300 transition hover:bg-indigo-500/20 md:inline-flex"
             >
-              About
+              Resume
             </a>
 
-            <a
-              href="#skills"
-              className="text-sm text-slate-300 transition hover:text-white"
+            {/* Mobile Menu Button */}
+            <button
+              type="button"
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileMenuOpen}
+              onClick={() => setMobileMenuOpen((open) => !open)}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-slate-300 transition hover:border-indigo-400/30 hover:bg-indigo-500/10 hover:text-white md:hidden"
             >
-              Skills
-            </a>
-
-            <a
-              href="#projects"
-              className="text-sm text-slate-300 transition hover:text-white"
-            >
-              Projects
-            </a>
-
-            <a
-              href="#exploring"
-              className="text-sm text-slate-300 transition hover:text-white"
-            >
-              Exploring
-            </a>
-
-            <a
-              href="#contact"
-              className="text-sm text-slate-300 transition hover:text-white"
-            >
-              Contact
-            </a>
+              {mobileMenuOpen ? (
+                <HiXMark className="text-xl" />
+              ) : (
+                <HiBars3 className="text-xl" />
+              )}
+            </button>
           </div>
 
-          <a
-            href="/resume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden rounded-full border border-indigo-400/30 bg-indigo-500/10 px-5 py-2 text-sm font-semibold text-indigo-300 transition hover:bg-indigo-500/20 sm:inline-flex"
+          {/* Mobile Navigation */}
+          <div
+            className={`overflow-hidden transition-all duration-300 md:hidden ${mobileMenuOpen ? "max-h-96 pb-5 opacity-100" : "max-h-0 opacity-0"
+              }`}
           >
-            Resume
-          </a>
+            <div className="rounded-2xl border border-white/10 bg-white/3 p-3">
+              <div className="flex flex-col">
+                {[
+                  ["Home", "#home"],
+                  ["About", "#about"],
+                  ["Skills", "#skills"],
+                  ["Projects", "#projects"],
+                  ["Exploring", "#exploring"],
+                  ["Contact", "#contact"],
+                ].map(([label, href]) => (
+                  <a
+                    key={label}
+                    href={href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="rounded-xl px-4 py-3 text-sm font-medium text-slate-300 transition hover:bg-indigo-500/10 hover:text-white"
+                  >
+                    {label}
+                  </a>
+                ))}
+
+                <a
+                  href="/resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="mt-2 inline-flex items-center justify-center rounded-xl bg-indigo-500 px-4 py-3 text-sm font-semibold text-white transition hover:bg-indigo-400"
+                >
+                  View Resume
+                </a>
+              </div>
+            </div>
+          </div>
         </nav>
       </header>
 
