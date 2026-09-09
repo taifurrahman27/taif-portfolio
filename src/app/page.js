@@ -4,6 +4,13 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import projects from "@/data/projects";
+import { motion, useReducedMotion } from "framer-motion";
+
+import FadeUp from "@/components/motion/FadeUp";
+import FadeIn from "@/components/motion/FadeIn";
+import StaggerContainer from "@/components/motion/StaggerContainer";
+import StaggerItem from "@/components/motion/StaggerItem";
+
 
 import {
   HiArrowUpRight,
@@ -116,18 +123,24 @@ const categories = [
 function SectionHeading({ eyebrow, title, description }) {
   return (
     <div className="mb-12 max-w-3xl">
-      <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-indigo-400">
-        {eyebrow}
-      </p>
+      <FadeUp distance={20}>
+        <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-indigo-400">
+          {eyebrow}
+        </p>
+      </FadeUp>
 
-      <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
-        {title}
-      </h2>
+      <FadeUp delay={0.08} distance={25}>
+        <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
+          {title}
+        </h2>
+      </FadeUp>
 
       {description && (
-        <p className="mt-5 text-base leading-7 text-slate-400 sm:text-lg">
-          {description}
-        </p>
+        <FadeUp delay={0.16} distance={20}>
+          <p className="mt-5 text-base leading-7 text-slate-400 sm:text-lg">
+            {description}
+          </p>
+        </FadeUp>
       )}
     </div>
   );
@@ -149,8 +162,29 @@ function SocialLink({ href, label }) {
 
 function ProjectCard({ project }) {
   return (
-    <article
-      className={`group relative overflow-hidden rounded-3xl border border-white/10 bg-white/3 p-6 transition duration-300 hover:-translate-y-1 hover:border-indigo-400/30 hover:bg-white/5 ${project.featured ? "lg:col-span-2 lg:p-8" : ""
+    <motion.article
+      variants={{
+        hidden: {
+          opacity: 0,
+          y: 35,
+        },
+        visible: {
+          opacity: 1,
+          y: 0,
+          transition: {
+            duration: 0.6,
+            ease: [0.22, 1, 0.36, 1],
+          },
+        },
+      }}
+      whileHover={{
+        y: -6,
+      }}
+      transition={{
+        duration: 0.25,
+        ease: "easeOut",
+      }}
+      className={`group relative overflow-hidden rounded-3xl border border-white/10 bg-white/3 p-6 transition-colors duration-300 hover:border-indigo-400/30 hover:bg-white/5 ${project.featured ? "lg:col-span-2 lg:p-8" : ""
         }`}
     >
       <div className="absolute right-0 top-0 h-32 w-32 rounded-full bg-indigo-500/10 blur-3xl transition group-hover:bg-indigo-500/20" />
@@ -206,7 +240,7 @@ function ProjectCard({ project }) {
         </div>
 
         <div className="mt-8 flex flex-wrap gap-3">
-          {project.github !== "#" ? (
+          {project.github && project.github !== "#" && (
             <a
               href={project.github}
               target="_blank"
@@ -216,9 +250,9 @@ function ProjectCard({ project }) {
               GitHub
               <HiArrowUpRight />
             </a>
-          ) : null}
+          )}
 
-          {project.live !== "#" ? (
+          {project.live && project.live !== "#" && (
             <a
               href={project.live}
               target="_blank"
@@ -228,16 +262,18 @@ function ProjectCard({ project }) {
               Live Demo
               <HiArrowUpRight />
             </a>
-          ) : null}
+          )}
         </div>
       </div>
-    </article>
+    </motion.article>
   );
 }
+
 
 export default function Home() {
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
 
   return (
@@ -386,7 +422,18 @@ export default function Home() {
         className="mx-auto flex min-h-screen max-w-7xl items-center px-5 pb-20 pt-32 lg:px-8"
       >
         <div className="grid w-full items-center gap-16 lg:grid-cols-[1.2fr_0.8fr]">
-          <div>
+          <motion.div
+            initial={
+              shouldReduceMotion
+                ? { opacity: 1 }
+                : { opacity: 0, x: -35 }
+            }
+            animate={{ opacity: 1, x: 0 }}
+            transition={{
+              duration: 0.7,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+          >
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-indigo-400/20 bg-indigo-500/10 px-4 py-2 text-xs font-medium text-indigo-300">
               <span className="h-2 w-2 rounded-full bg-indigo-400" />
               Available for opportunities
@@ -447,10 +494,30 @@ export default function Home() {
                 label="LinkedIn"
               />
             </div>
-          </div>
+          </motion.div>
 
           {/* Profile */}
-          <div className="relative mx-auto w-full max-w-md">
+          <motion.div
+            initial={
+              shouldReduceMotion
+                ? { opacity: 1 }
+                : { opacity: 0, x: 35, scale: 0.96 }
+            }
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            transition={{
+              duration: 0.8,
+              delay: 0.15,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            whileHover={
+              shouldReduceMotion
+                ? undefined
+                : {
+                  y: -6,
+                }
+            }
+            className="relative mx-auto w-full max-w-md"
+          >
             <div className="absolute inset-0 scale-90 rounded-full bg-indigo-500/20 blur-[90px]" />
 
             <div className="relative aspect-square overflow-hidden rounded-[2.5rem] border border-white/10 bg-white/4 p-3 shadow-2xl shadow-indigo-950/30">
@@ -466,20 +533,55 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="absolute -bottom-5 -left-5 rounded-2xl border border-white/10 bg-[#0b1020]/90 px-5 py-4 shadow-xl backdrop-blur-xl">
+            <motion.div
+              initial={
+                shouldReduceMotion
+                  ? { opacity: 1 }
+                  : { opacity: 0, y: 15 }
+              }
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.6,
+                delay: 0.65,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="absolute -bottom-5 -left-5 rounded-2xl border border-white/10 bg-[#0b1020]/90 px-5 py-4 shadow-xl backdrop-blur-xl"
+            >
               <p className="text-xs text-slate-500">Currently exploring</p>
               <p className="mt-1 font-semibold text-white">MCP + AI Tools</p>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
       {/* Scroll indicator */}
-      <div className="hidden justify-center pb-16 text-slate-600 md:flex">
-        <a href="#about" aria-label="Scroll to about section">
-          <HiOutlineArrowDown className="animate-bounce text-2xl" />
+      <motion.div
+        initial={
+          shouldReduceMotion
+            ? { opacity: 1 }
+            : { opacity: 0, y: -8 }
+        }
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          duration: 0.6,
+          delay: 1,
+          ease: "easeOut",
+        }}
+        className="hidden justify-center pb-16 text-slate-600 md:flex"
+      >
+        <a
+          href="#about"
+          aria-label="Scroll to about section"
+        >
+          <HiOutlineArrowDown
+            className={
+              shouldReduceMotion
+                ? "text-2xl"
+                : "animate-bounce text-2xl"
+            }
+          />
         </a>
-      </div>
+      </motion.div>
 
       {/* About */}
       <section id="about" className="mx-auto max-w-7xl px-5 py-24 lg:px-8">
@@ -545,39 +647,41 @@ export default function Home() {
             description="Technologies and tools I use to design, build, test, and ship modern web applications."
           />
 
-          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          <StaggerContainer
+            className="grid gap-5 md:grid-cols-2 lg:grid-cols-3"
+            stagger={0.08}
+          >
             {categories.map((category) => {
               const Icon = category.icon;
 
               return (
-                <div
-                  key={category.title}
-                  className="rounded-3xl border border-white/10 bg-[#080d1d]/80 p-6 transition hover:border-indigo-400/20"
-                >
-                  <div className="mb-5 flex items-center gap-3">
-                    <div className="rounded-xl bg-indigo-500/10 p-3 text-indigo-400">
-                      <Icon className="text-xl" />
+                <StaggerItem key={category.title}>
+                  <div className="h-full rounded-3xl border border-white/10 bg-[#080d1d]/80 p-6 transition duration-300 hover:-translate-y-1 hover:border-indigo-400/20">
+                    <div className="mb-5 flex items-center gap-3">
+                      <div className="rounded-xl bg-indigo-500/10 p-3 text-indigo-400">
+                        <Icon className="text-xl" />
+                      </div>
+
+                      <h3 className="font-semibold text-white">
+                        {category.title}
+                      </h3>
                     </div>
 
-                    <h3 className="font-semibold text-white">
-                      {category.title}
-                    </h3>
+                    <div className="flex flex-wrap gap-2">
+                      {category.items.map((item) => (
+                        <span
+                          key={item}
+                          className="rounded-lg border border-white/10 bg-white/3 px-3 py-2 text-xs text-slate-400"
+                        >
+                          {item}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-
-                  <div className="flex flex-wrap gap-2">
-                    {category.items.map((item) => (
-                      <span
-                        key={item}
-                        className="rounded-lg border border-white/10 bg-white/3 py-2 text-xs text-slate-400"
-                      >
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+                </StaggerItem>
               );
             })}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
@@ -589,11 +693,16 @@ export default function Home() {
           description="A selection of applications I've built while developing my full-stack skills and exploring real-world product problems."
         />
 
-        <div className="grid gap-6 lg:grid-cols-2">
+        <StaggerContainer
+          className="grid gap-6 lg:grid-cols-2"
+          stagger={0.12}
+        >
           {projects.map((project) => (
-            <ProjectCard key={project.name} project={project} />
+            <StaggerItem key={project.name}>
+              <ProjectCard project={project} />
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
       </section>
 
       {/* Exploring */}
@@ -608,107 +717,131 @@ export default function Home() {
             description="I'm not stopping at building web applications. I'm exploring how software, AI, and developer tools can work together."
           />
 
-          <div className="grid gap-5 md:grid-cols-2">
+          <StaggerContainer
+            className="grid gap-5 md:grid-cols-2"
+            stagger={0.12}
+          >
             {explorations.map((item) => {
               const Icon = item.icon;
 
               return (
-                <div
-                  key={item.title}
-                  className="group rounded-3xl border border-white/10 bg-white/3 p-7 transition hover:-translate-y-1 hover:border-indigo-400/30"
-                >
-                  <div className="flex items-start gap-5">
-                    <div className="rounded-2xl bg-indigo-500/10 p-4 text-indigo-400">
-                      <Icon className="text-2xl" />
-                    </div>
+                <StaggerItem key={item.title}>
+                  <motion.div
+                    whileHover={{
+                      y: -6,
+                    }}
+                    transition={{
+                      duration: 0.25,
+                      ease: "easeOut",
+                    }}
+                    className="group h-full rounded-3xl border border-white/10 bg-white/3 p-7 transition-colors duration-300 hover:border-indigo-400/30"
+                  >
+                    <div className="flex items-start gap-5">
+                      <motion.div
+                        whileHover={{
+                          scale: 1.08,
+                          rotate: 3,
+                        }}
+                        transition={{
+                          duration: 0.2,
+                        }}
+                        className="rounded-2xl bg-indigo-500/10 p-4 text-indigo-400"
+                      >
+                        <Icon className="text-2xl" />
+                      </motion.div>
 
-                    <div>
-                      <h3 className="text-xl font-bold text-white">
-                        {item.title}
-                      </h3>
+                      <div>
+                        <h3 className="text-xl font-bold text-white">
+                          {item.title}
+                        </h3>
 
-                      <p className="mt-3 leading-7 text-slate-400">
-                        {item.description}
-                      </p>
+                        <p className="mt-3 leading-7 text-slate-400">
+                          {item.description}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </div>
+                  </motion.div>
+                </StaggerItem>
               );
             })}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
       {/* Contact */}
-      <section id="contact" className="mx-auto max-w-7xl px-5 py-24 lg:px-8">
+      <FadeUp distance={35}>
         <div className="relative overflow-hidden rounded-4xl border border-indigo-400/20 bg-indigo-500/6 p-8 sm:p-12 lg:p-16">
-          <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-indigo-500/10 blur-3xl" />
+          <section id="contact" className="mx-auto max-w-7xl px-5 py-24 lg:px-8">
+            <div className="relative overflow-hidden rounded-4xl border border-indigo-400/20 bg-indigo-500/6 p-8 sm:p-12 lg:p-16">
+              <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-indigo-500/10 blur-3xl" />
 
-          <div className="relative grid gap-12 lg:grid-cols-2 lg:items-end">
-            <div>
-              <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-indigo-400">
-                05 — Contact
-              </p>
-
-              <h2 className="max-w-2xl text-4xl font-black tracking-tight text-white sm:text-5xl">
-                Let&apos;s build something meaningful.
-              </h2>
-
-              <p className="mt-5 max-w-xl leading-7 text-slate-400">
-                Whether you have an opportunity, a project idea, or simply
-                want to connect, I&apos;d be happy to hear from you.
-              </p>
-            </div>
-
-            <div className="space-y-4">
-              <a
-                href="mailto:taif.jnu@gmail.com"
-                className="group flex items-center justify-between rounded-2xl border border-white/10 bg-black/20 p-5 transition hover:border-indigo-400/30 hover:bg-black/30"
-              >
-                <div className="flex items-center gap-4">
-                  <div className="rounded-xl bg-indigo-500/10 p-3 text-indigo-400">
-                    <HiEnvelope className="text-xl" />
-                  </div>
-
-                  <div>
-                    <p className="text-xs text-slate-500">Email</p>
-                    <p className="mt-1 text-sm font-medium text-white sm:text-base">
-                      taif.jnu@gmail.com
-                    </p>
-                  </div>
-                </div>
-
-                <HiArrowUpRight className="text-slate-500 transition group-hover:text-indigo-400" />
-              </a>
-
-              <div className="flex items-center gap-4 rounded-2xl border border-white/10 bg-black/20 p-5">
-                <div className="rounded-xl bg-indigo-500/10 p-3 text-indigo-400">
-                  <HiMapPin className="text-xl" />
-                </div>
-
+              <div className="relative grid gap-12 lg:grid-cols-2 lg:items-end">
                 <div>
-                  <p className="text-xs text-slate-500">Based in</p>
-                  <p className="mt-1 text-sm font-medium text-white sm:text-base">
-                    Dhaka, Bangladesh
+                  <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-indigo-400">
+                    05 — Contact
+                  </p>
+
+                  <h2 className="max-w-2xl text-4xl font-black tracking-tight text-white sm:text-5xl">
+                    Let&apos;s build something meaningful.
+                  </h2>
+
+                  <p className="mt-5 max-w-xl leading-7 text-slate-400">
+                    Whether you have an opportunity, a project idea, or simply
+                    want to connect, I&apos;d be happy to hear from you.
                   </p>
                 </div>
-              </div>
 
-              <div className="flex flex-wrap gap-3 pt-2">
-                <SocialLink
-                  href="https://github.com/taifurrahman27"
-                  label="GitHub"
-                />
+                <div className="space-y-4">
+                  <a
+                    href="mailto:taif.jnu@gmail.com"
+                    className="group flex items-center justify-between rounded-2xl border border-white/10 bg-black/20 p-5 transition hover:border-indigo-400/30 hover:bg-black/30"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="rounded-xl bg-indigo-500/10 p-3 text-indigo-400">
+                        <HiEnvelope className="text-xl" />
+                      </div>
 
-                <SocialLink
-                  href="https://www.linkedin.com/in/taifurrahmanjs"
-                  label="LinkedIn"
-                />
+                      <div>
+                        <p className="text-xs text-slate-500">Email</p>
+                        <p className="mt-1 text-sm font-medium text-white sm:text-base">
+                          taif.jnu@gmail.com
+                        </p>
+                      </div>
+                    </div>
+
+                    <HiArrowUpRight className="text-slate-500 transition group-hover:text-indigo-400" />
+                  </a>
+
+                  <div className="flex items-center gap-4 rounded-2xl border border-white/10 bg-black/20 p-5">
+                    <div className="rounded-xl bg-indigo-500/10 p-3 text-indigo-400">
+                      <HiMapPin className="text-xl" />
+                    </div>
+
+                    <div>
+                      <p className="text-xs text-slate-500">Based in</p>
+                      <p className="mt-1 text-sm font-medium text-white sm:text-base">
+                        Dhaka, Bangladesh
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap gap-3 pt-2">
+                    <SocialLink
+                      href="https://github.com/taifurrahman27"
+                      label="GitHub"
+                    />
+
+                    <SocialLink
+                      href="https://www.linkedin.com/in/taifurrahmanjs"
+                      label="LinkedIn"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          </section>
         </div>
-      </section>
+      </FadeUp>
 
       {/* Footer */}
       <footer className="border-t border-white/5">
@@ -739,6 +872,6 @@ export default function Home() {
           </div>
         </div>
       </footer>
-    </main>
+    </main >
   );
 }
