@@ -783,80 +783,85 @@ export default function Home() {
         </div>
       </section>
 
+
       {/* Contact */}
-      <FadeUp distance={35}>
-        <div className="relative overflow-hidden rounded-4xl border border-indigo-400/20 bg-indigo-500/6 p-8 sm:p-12 lg:p-16">
-          <section id="contact" className="mx-auto max-w-7xl px-5 py-24 lg:px-8">
-            <div className="relative overflow-hidden rounded-4xl border border-indigo-400/20 bg-indigo-500/6 p-8 sm:p-12 lg:p-16">
-              <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-indigo-500/10 blur-3xl" />
+      <section
+        id="contact"
+        className="mx-auto max-w-7xl px-5 py-24 lg:px-8"
+      >
+        <FadeUp distance={35}>
+          <div className="relative overflow-hidden rounded-4xl border border-indigo-400/20 bg-indigo-500/6 p-8 sm:p-12 lg:p-16">
+            <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-indigo-500/10 blur-3xl" />
 
-              <div className="relative grid gap-12 lg:grid-cols-2 lg:items-end">
-                <div>
-                  <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-indigo-400">
-                    05 — Contact
-                  </p>
+            <div className="relative grid gap-12 lg:grid-cols-2 lg:items-end">
+              <div>
+                <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-indigo-400">
+                  05 — Contact
+                </p>
 
-                  <h2 className="max-w-2xl text-4xl font-black tracking-tight text-white sm:text-5xl">
-                    Let&apos;s build something meaningful.
-                  </h2>
+                <h2 className="max-w-2xl text-4xl font-black tracking-tight text-white sm:text-5xl">
+                  Let&apos;s build something meaningful.
+                </h2>
 
-                  <p className="mt-5 max-w-xl leading-7 text-slate-400">
-                    Whether you have an opportunity, a project idea, or simply
-                    want to connect, I&apos;d be happy to hear from you.
-                  </p>
-                </div>
+                <p className="mt-5 max-w-xl leading-7 text-slate-400">
+                  Whether you have an opportunity, a project idea, or simply want
+                  to connect, I&apos;d be happy to hear from you.
+                </p>
+              </div>
 
-                <div className="space-y-4">
-                  <a
-                    href="mailto:taif.jnu@gmail.com"
-                    className="group flex items-center justify-between rounded-2xl border border-white/10 bg-black/20 p-5 transition hover:border-indigo-400/30 hover:bg-black/30"
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className="rounded-xl bg-indigo-500/10 p-3 text-indigo-400">
-                        <HiEnvelope className="text-xl" />
-                      </div>
-
-                      <div>
-                        <p className="text-xs text-slate-500">Email</p>
-                        <p className="mt-1 text-sm font-medium text-white sm:text-base">
-                          taif.jnu@gmail.com
-                        </p>
-                      </div>
-                    </div>
-
-                    <HiArrowUpRight className="text-slate-500 transition group-hover:text-indigo-400" />
-                  </a>
-
-                  <div className="flex items-center gap-4 rounded-2xl border border-white/10 bg-black/20 p-5">
+              <div className="space-y-4">
+                <a
+                  href="mailto:taif.jnu@gmail.com"
+                  className="group flex items-center justify-between rounded-2xl border border-white/10 bg-black/20 p-5 transition hover:border-indigo-400/30 hover:bg-black/30"
+                >
+                  <div className="flex items-center gap-4">
                     <div className="rounded-xl bg-indigo-500/10 p-3 text-indigo-400">
-                      <HiMapPin className="text-xl" />
+                      <HiEnvelope className="text-xl" />
                     </div>
 
                     <div>
-                      <p className="text-xs text-slate-500">Based in</p>
+                      <p className="text-xs text-slate-500">Email</p>
+
                       <p className="mt-1 text-sm font-medium text-white sm:text-base">
-                        Dhaka, Bangladesh
+                        taif.jnu@gmail.com
                       </p>
                     </div>
                   </div>
 
-                  <div className="flex flex-wrap gap-3 pt-2">
-                    <SocialLink
-                      href="https://github.com/taifurrahman27"
-                      label="GitHub"
-                    />
+                  <HiArrowUpRight className="text-slate-500 transition group-hover:text-indigo-400" />
+                </a>
 
-                    <SocialLink
-                      href="https://www.linkedin.com/in/taifurrahmanjs"
-                      label="LinkedIn"
-                    />
+                <div className="flex items-center gap-4 rounded-2xl border border-white/10 bg-black/20 p-5">
+                  <div className="rounded-xl bg-indigo-500/10 p-3 text-indigo-400">
+                    <HiMapPin className="text-xl" />
                   </div>
+
+                  <div>
+                    <p className="text-xs text-slate-500">Based in</p>
+
+                    <p className="mt-1 text-sm font-medium text-white sm:text-base">
+                      Dhaka, Bangladesh
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap gap-3 pt-2">
+                  <SocialLink
+                    href="https://github.com/taifurrahman27"
+                    label="GitHub"
+                  />
+
+                  <SocialLink
+                    href="https://www.linkedin.com/in/taifurrahmanjs"
+                    label="LinkedIn"
+                  />
                 </div>
               </div>
             </div>
-          </section>
-        </div>
-      </FadeUp>
+          </div>
+        </FadeUp>
+      </section>
+
 
       {/* Footer */}
       <footer className="border-t border-white/5">
