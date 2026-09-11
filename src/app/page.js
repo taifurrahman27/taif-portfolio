@@ -154,8 +154,8 @@ function SocialLink({ href, label, darkMode }) {
       target="_blank"
       rel="noopener noreferrer"
       className={`inline-flex items-center rounded-full border px-4 py-2 text-sm font-medium transition-colors ${darkMode
-          ? "border-white/10 bg-white/5 text-slate-300 hover:border-indigo-400/30 hover:bg-indigo-500/10 hover:text-white"
-          : "border-slate-200 bg-slate-50 text-slate-600 hover:border-indigo-300 hover:bg-indigo-50 hover:text-slate-900"
+        ? "border-white/10 bg-white/5 text-slate-300 hover:border-indigo-400/30 hover:bg-indigo-500/10 hover:text-white"
+        : "border-slate-200 bg-slate-50 text-slate-600 hover:border-indigo-300 hover:bg-indigo-50 hover:text-slate-900"
         }`}
     >
       {label}
@@ -478,7 +478,7 @@ export default function Home() {
               Hello, I&apos;m
             </p>
 
-            <h1 className="max-w-4xl text-5xl font-black leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">
+            <h1 className="max-w-4xl text-[2.75rem] font-black leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">
               MD. TAIFUR
               <br />
               RAHMAN{" "}
