@@ -456,31 +456,52 @@ export default function Home() {
               Full-Stack Web Developer{" "}
               <span className="text-indigo-400">|</span>{" "}
               <span className="text-slate-400">
-                Aspiring Software Engineer
+                Software Engineer
               </span>
             </h2>
 
             <p className="mt-6 max-w-2xl text-base leading-8 text-slate-400 sm:text-lg">
               I build responsive, user-focused web applications with modern
-              JavaScript technologies. I enjoy turning ideas into practical
-              products while continuously growing as a software engineer.
+              technologies. I enjoy turning ideas into practical products while
+              continuously improving my skills in software engineering, backend
+              architecture, and emerging AI-powered tools.
             </p>
 
             <div className="mt-9 flex flex-wrap gap-4">
-              <a
+              <motion.a
                 href="#projects"
+                whileHover={
+                  shouldReduceMotion
+                    ? undefined
+                    : { scale: 1.03 }
+                }
+                whileTap={
+                  shouldReduceMotion
+                    ? undefined
+                    : { scale: 0.98 }
+                }
                 className="group inline-flex items-center gap-2 rounded-full bg-indigo-500 px-6 py-3 font-semibold text-white transition hover:bg-indigo-400"
               >
                 View Projects
-                <HiOutlineArrowRight className="transition group-hover:translate-x-1" />
-              </a>
+                <HiOutlineArrowRight className="transition-transform duration-200 group-hover:translate-x-1" />
+              </motion.a>
 
-              <a
+              <motion.a
                 href="#contact"
+                whileHover={
+                  shouldReduceMotion
+                    ? undefined
+                    : { scale: 1.03 }
+                }
+                whileTap={
+                  shouldReduceMotion
+                    ? undefined
+                    : { scale: 0.98 }
+                }
                 className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/3 px-6 py-3 font-semibold text-slate-200 transition hover:bg-white/[0.07]"
               >
                 Contact Me
-              </a>
+              </motion.a>
             </div>
 
             <div className="mt-9 flex flex-wrap gap-3">
@@ -547,41 +568,35 @@ export default function Home() {
               }}
               className="absolute -bottom-5 -left-5 rounded-2xl border border-white/10 bg-[#0b1020]/90 px-5 py-4 shadow-xl backdrop-blur-xl"
             >
-              <p className="text-xs text-slate-500">Currently exploring</p>
-              <p className="mt-1 font-semibold text-white">MCP + AI Tools</p>
+              <p className="text-xs text-slate-500">
+                Currently exploring
+              </p>
+
+              <p className="mt-1 font-semibold text-white">
+                MCP + AI Tools
+              </p>
             </motion.div>
           </motion.div>
         </div>
       </section>
 
       {/* Scroll indicator */}
-      <motion.div
-        initial={
-          shouldReduceMotion
-            ? { opacity: 1 }
-            : { opacity: 0, y: -8 }
-        }
-        animate={{ opacity: 1, y: 0 }}
-        transition={{
-          duration: 0.6,
-          delay: 1,
-          ease: "easeOut",
-        }}
-        className="hidden justify-center pb-16 text-slate-600 md:flex"
-      >
-        <a
-          href="#about"
-          aria-label="Scroll to about section"
-        >
-          <HiOutlineArrowDown
-            className={
-              shouldReduceMotion
-                ? "text-2xl"
-                : "animate-bounce text-2xl"
-            }
-          />
-        </a>
-      </motion.div>
+      <FadeIn delay={1} duration={0.6} amount={0.2}>
+        <div className="hidden justify-center pb-16 text-slate-600 md:flex">
+          <a
+            href="#about"
+            aria-label="Scroll to about section"
+          >
+            <HiOutlineArrowDown
+              className={
+                shouldReduceMotion
+                  ? "text-2xl"
+                  : "animate-bounce text-2xl"
+              }
+            />
+          </a>
+        </div>
+      </FadeIn>
 
       {/* About */}
       <section id="about" className="mx-auto max-w-7xl px-5 py-24 lg:px-8">
