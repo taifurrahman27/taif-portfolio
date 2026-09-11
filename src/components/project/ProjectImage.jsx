@@ -42,6 +42,7 @@ function ProjectImage({ project, darkMode }) {
                     src={project.image}
                     alt={`${project.name} project screenshot`}
                     fill
+                    sizes="(max-width: 1024px) 100vw, 1200px"
                     className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                 />
 
@@ -53,15 +54,17 @@ function ProjectImage({ project, darkMode }) {
                         }`}
                 />
 
-                {/* View label */}
-                <div
+                <a
+                    href={project.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className={`absolute bottom-4 right-4 translate-y-2 rounded-full border px-3 py-1.5 text-xs font-medium opacity-0 backdrop-blur-md transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 ${darkMode
-                        ? "border-white/10 bg-[#080d1d]/80 text-white"
-                        : "border-slate-200 bg-white/90 text-slate-700"
+                        ? "border-white/10 bg-[#080d1d]/80 text-white hover:border-indigo-400/30 hover:bg-indigo-500/20"
+                        : "border-slate-200 bg-white/90 text-slate-700 hover:border-indigo-300 hover:bg-indigo-50"
                         }`}
                 >
                     View Project
-                </div>
+                </a>
             </div>
         </div>
     );

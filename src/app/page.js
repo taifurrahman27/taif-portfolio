@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import projects from "@/data/projects";
 import { motion, useReducedMotion } from "framer-motion";
 
 import FadeUp from "@/components/motion/FadeUp";
@@ -19,11 +18,8 @@ import {
   HiMapPin,
   HiOutlineArrowDown,
   HiOutlineArrowRight,
-  HiOutlineBuildingOffice2,
   HiOutlineCpuChip,
   HiOutlineLightBulb,
-  HiOutlinePaintBrush,
-  HiOutlineUserGroup,
   HiSparkles,
   HiBars3,
   HiXMark,
@@ -33,97 +29,10 @@ import {
 import ThemeToggle from "@/components/theme/ThemeTogle";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 import ProjectCard from "@/components/project/ProjectCard";
-
-const skills = {
-  Languages: ["JavaScript (ES6+)", "TypeScript", "HTML5", "CSS3"],
-  Frontend: [
-    "React.js",
-    "Next.js",
-    "Redux",
-    "Tailwind CSS",
-    "Bootstrap",
-    "Framer Motion",
-  ],
-  Backend: [
-    "Node.js",
-    "Express.js",
-    "REST APIs",
-    "JWT Authentication",
-    "Server-Side Logic",
-  ],
-  Database: [
-    "MongoDB",
-    "Mongoose",
-    "Firebase Authentication",
-    "NoSQL",
-  ],
-  Tools: [
-    "Git",
-    "GitHub",
-    "VS Code",
-    "Figma",
-    "Vercel",
-    "Postman",
-    "npm",
-    "CI/CD",
-  ],
-};
-
-
-const explorations = [
-  {
-    icon: HiOutlineCpuChip,
-    title: "MCP",
-    description:
-      "Exploring Model Context Protocol and how AI systems can connect with real applications, APIs, and tools.",
-  },
-  {
-    icon: HiSparkles,
-    title: "AI + Tools",
-    description:
-      "Learning how AI can move beyond conversations and interact with practical software systems.",
-  },
-  {
-    icon: HiCodeBracket,
-    title: "Backend Architecture",
-    description:
-      "Deepening my understanding of scalable APIs, authentication, databases, payments, and server-side systems.",
-  },
-  {
-    icon: HiOutlineLightBulb,
-    title: "Software Engineering",
-    description:
-      "Continuously improving code quality, architecture, problem-solving, and engineering best practices.",
-  },
-];
-
-const categories = [
-  {
-    icon: HiOutlineCpuChip,
-    title: "Languages",
-    items: skills.Languages,
-  },
-  {
-    icon: HiOutlinePaintBrush,
-    title: "Frontend",
-    items: skills.Frontend,
-  },
-  {
-    icon: HiCodeBracket,
-    title: "Backend",
-    items: skills.Backend,
-  },
-  {
-    icon: HiOutlineBuildingOffice2,
-    title: "Database",
-    items: skills.Database,
-  },
-  {
-    icon: HiOutlineUserGroup,
-    title: "Tools & Platforms",
-    items: skills.Tools,
-  },
-];
+import projects from "@/data/projects";
+import SkillsSection from "@/components/skills/SkillsSection";
+import ExplorationsSection from "@/components/explorations/ExplorationsSection";
+import Footer from "@/components/footer/Footer";
 
 function SectionHeading({ eyebrow, title, description, darkMode }) {
   return (
@@ -587,6 +496,7 @@ export default function Home() {
         </div>
       </FadeIn>
 
+
       {/* About */}
       <section id="about" className="mx-auto max-w-7xl px-5 py-24 lg:px-8">
         <SectionHeading
@@ -644,76 +554,7 @@ export default function Home() {
       </section>
 
       {/* Skills */}
-      <section id="skills" className={`border-y ${darkMode ? "border-white/5 bg-white/1.5" : "border-slate-200 bg-slate-100/70"}`}>
-        <div className="mx-auto max-w-7xl px-5 py-24 lg:px-8">
-          <SectionHeading
-            eyebrow="02 — Skills"
-            title="My technical toolkit."
-            description="Technologies and tools I use to design, build, test, and ship modern web applications."
-            darkMode={darkMode}
-          />
-
-          <StaggerContainer
-            className="grid gap-5 md:grid-cols-2 lg:grid-cols-3"
-            stagger={0.08}
-          >
-            {categories.map((category) => {
-              const Icon = category.icon;
-
-              return (
-                <StaggerItem key={category.title}>
-                  <div
-                    className={`group relative h-full overflow-hidden rounded-3xl border p-6 transition-all duration-500 hover:-translate-y-1 ${darkMode
-                      ? "border-white/10 bg-[#080d1d]/80 shadow-[0_0_25px_rgba(99,102,241,0.1)] hover:border-indigo-400/30 hover:shadow-[0_0_45px_rgba(99,102,241,0.28),0_0_80px_rgba(139,92,246,0.14)]"
-                      : "border-slate-200 bg-white shadow-[0_0_20px_rgba(99,102,241,0.07)] hover:border-indigo-300 hover:shadow-[0_0_40px_rgba(99,102,241,0.18),0_0_70px_rgba(139,92,246,0.08)]"
-                      }`}
-                  >
-                    {/* Subtle top accent */}
-                    <div
-                      className={`absolute inset-x-6 top-0 h-px transition-all duration-500 ${darkMode
-                        ? "bg-linear-to-r from-transparent via-indigo-400/0 to-transparent group-hover:via-indigo-400/70"
-                        : "bg-linear-to-r from-transparent via-indigo-400/0 to-transparent group-hover:via-indigo-400/50"
-                        }`}
-                    />
-
-                    <div className="mb-5 flex items-center gap-3">
-                      <div
-                        className={`rounded-xl border p-3 transition-all duration-300 ${darkMode
-                          ? "border-indigo-400/10 bg-indigo-500/10 text-indigo-400 group-hover:border-indigo-400/20 group-hover:bg-indigo-500/15 group-hover:text-indigo-300 group-hover:shadow-[0_0_20px_rgba(99,102,241,0.2)]"
-                          : "border-indigo-100 bg-indigo-50 text-indigo-500 group-hover:border-indigo-200 group-hover:bg-indigo-100 group-hover:text-indigo-600 group-hover:shadow-[0_0_20px_rgba(99,102,241,0.12)]"
-                          }`}
-                      >
-                        <Icon className="text-xl transition-transform duration-300 group-hover:scale-110" />
-                      </div>
-
-                      <h3
-                        className={`font-semibold ${darkMode ? "text-white" : "text-slate-900"
-                          }`}
-                      >
-                        {category.title}
-                      </h3>
-                    </div>
-
-                    <div className="flex flex-wrap gap-2">
-                      {category.items.map((item) => (
-                        <span
-                          key={item}
-                          className={`rounded-lg border px-3 py-2 text-xs font-medium transition-all duration-300 ${darkMode
-                            ? "border-white/10 bg-white/3 text-slate-400 hover:border-indigo-400/20 hover:bg-indigo-500/10 hover:text-indigo-300"
-                            : "border-slate-200 bg-slate-50 text-slate-600 hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-600"
-                            }`}
-                        >
-                          {item}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </StaggerItem>
-              );
-            })}
-          </StaggerContainer>
-        </div>
-      </section>
+      <SkillsSection darkMode={darkMode} />
 
       {/* Projects */}
       <section id="projects" className="mx-auto max-w-7xl px-5 py-24 lg:px-8">
@@ -737,71 +578,7 @@ export default function Home() {
       </section>
 
       {/* Exploring */}
-      <section
-        id="exploring"
-        className={`border-y ${darkMode ? "border-white/5 bg-white/1.5" : "border-slate-200 bg-slate-100/70"}`}
-      >
-        <div className="mx-auto max-w-7xl px-5 py-24 lg:px-8">
-          <SectionHeading
-            eyebrow="04 — What's Next"
-            title="What I'm exploring."
-            description="I'm not stopping at building web applications. I'm exploring how software, AI, and developer tools can work together."
-            darkMode={darkMode}
-          />
-
-          <StaggerContainer
-            className="grid gap-5 md:grid-cols-2"
-            stagger={0.12}
-          >
-            {explorations.map((item) => {
-              const Icon = item.icon;
-
-              return (
-                <StaggerItem key={item.title}>
-                  <motion.div
-                    whileHover={{
-                      y: -6,
-                    }}
-                    transition={{
-                      duration: 0.25,
-                      ease: "easeOut",
-                    }}
-                    className={`group h-full rounded-3xl border p-7 transition-all duration-500 ${darkMode
-                      ? "border-white/10 bg-white/3 shadow-[0_0_25px_rgba(99,102,241,0.12)] hover:border-indigo-400/30 hover:shadow-[0_0_45px_rgba(99,102,241,0.3),0_0_85px_rgba(139,92,246,0.15)]"
-                      : "border-slate-200 bg-white shadow-[0_0_20px_rgba(99,102,241,0.08)] hover:border-indigo-400/40 hover:shadow-[0_0_40px_rgba(99,102,241,0.2),0_0_75px_rgba(139,92,246,0.1)]"
-                      }`}
-                  >
-                    <div className="flex items-start gap-5">
-                      <motion.div
-                        whileHover={{
-                          scale: 1.08,
-                          rotate: 3,
-                        }}
-                        transition={{
-                          duration: 0.2,
-                        }}
-                        className="rounded-2xl bg-indigo-500/10 p-4 text-indigo-400"
-                      >
-                        <Icon className="text-2xl" />
-                      </motion.div>
-
-                      <div>
-                        <h3 className={`text-xl font-bold ${darkMode ? "text-white" : "text-slate-900"}`}>
-                          {item.title}
-                        </h3>
-
-                        <p className={`mt-3 leading-7 ${darkMode ? "text-slate-400" : "text-slate-600"}`}>
-                          {item.description}
-                        </p>
-                      </div>
-                    </div>
-                  </motion.div>
-                </StaggerItem>
-              );
-            })}
-          </StaggerContainer>
-        </div>
-      </section>
+      <ExplorationsSection darkMode={darkMode} />
 
 
       {/* Contact */}
@@ -884,64 +661,9 @@ export default function Home() {
         </FadeUp>
       </section>
 
-
       {/* Footer */}
-      <footer className={`border-t ${darkMode ? "border-white/5" : "border-slate-200"}`}>
-        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-8 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between lg:px-8">
-          <p
-            className={`text-center text-sm ${darkMode ? "text-slate-500" : "text-slate-500"
-              }`}
-          >
-            © {new Date().getFullYear()}{" "}
-            <span
-              className={`font-medium ${darkMode ? "text-slate-300" : "text-slate-700"
-                }`}
-            >
-              MD. TAIFUR RAHMAN JASIM
-            </span>
-            . All rights reserved.
-          </p>
+      <Footer darkMode={darkMode} />
 
-          <div className="flex items-center gap-3">
-            <a
-              href="https://github.com/taifurrahman27"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="GitHub"
-              className={`flex h-10 w-10 items-center justify-center rounded-xl border transition-all duration-300 ${darkMode
-                ? "border-white/10 bg-white/5 text-slate-400 hover:border-indigo-400/30 hover:bg-indigo-500/10 hover:text-white hover:shadow-[0_0_25px_rgba(99,102,241,0.25)]"
-                : "border-slate-200 bg-slate-50 text-slate-600 hover:border-indigo-400/40 hover:bg-indigo-50 hover:text-indigo-600 hover:shadow-[0_0_20px_rgba(99,102,241,0.15)]"
-                }`}
-            >
-              <FaGithub className="text-lg" />
-            </a>
-
-            <a
-              href="https://www.linkedin.com/in/taifurrahmanjs"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LinkedIn"
-              className={`flex h-10 w-10 items-center justify-center rounded-xl border transition-all duration-300 ${darkMode
-                ? "border-white/10 bg-white/5 text-slate-400 hover:border-indigo-400/30 hover:bg-indigo-500/10 hover:text-white hover:shadow-[0_0_25px_rgba(99,102,241,0.25)]"
-                : "border-slate-200 bg-slate-50 text-slate-600 hover:border-indigo-400/40 hover:bg-indigo-50 hover:text-indigo-600 hover:shadow-[0_0_20px_rgba(99,102,241,0.15)]"
-                }`}
-            >
-              <FaLinkedinIn className="text-lg" />
-            </a>
-
-            <a
-              href="mailto:taif.jnu@gmail.com"
-              aria-label="Email"
-              className={`flex h-10 w-10 items-center justify-center rounded-xl border transition-all duration-300 ${darkMode
-                ? "border-white/10 bg-white/5 text-slate-400 hover:border-indigo-400/30 hover:bg-indigo-500/10 hover:text-white hover:shadow-[0_0_25px_rgba(99,102,241,0.25)]"
-                : "border-slate-200 bg-slate-50 text-slate-600 hover:border-indigo-400/40 hover:bg-indigo-50 hover:text-indigo-600 hover:shadow-[0_0_20px_rgba(99,102,241,0.15)]"
-                }`}
-            >
-              <HiOutlineEnvelope className="text-lg" />
-            </a>
-          </div>
-        </div>
-      </footer>
     </main >
   );
 }
