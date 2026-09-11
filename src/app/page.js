@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import projects from "@/data/projects";
@@ -28,6 +28,7 @@ import {
   HiBars3,
   HiXMark,
 } from "react-icons/hi2";
+import ThemeToggle from "@/components/theme/ThemeTogle";
 
 const skills = {
   Languages: ["JavaScript (ES6+)", "TypeScript", "HTML5", "CSS3"],
@@ -120,7 +121,7 @@ const categories = [
   },
 ];
 
-function SectionHeading({ eyebrow, title, description }) {
+function SectionHeading({ eyebrow, title, description, darkMode }) {
   return (
     <div className="mb-12 max-w-3xl">
       <FadeUp distance={20}>
@@ -130,14 +131,14 @@ function SectionHeading({ eyebrow, title, description }) {
       </FadeUp>
 
       <FadeUp delay={0.08} distance={25}>
-        <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
+        <h2 className={`text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl ${darkMode ? "text-white" : "text-slate-900"}`}>
           {title}
         </h2>
       </FadeUp>
 
       {description && (
         <FadeUp delay={0.16} distance={20}>
-          <p className="mt-5 text-base leading-7 text-slate-400 sm:text-lg">
+          <p className={`mt-5 text-base leading-7 sm:text-lg ${darkMode ? "text-slate-400" : "text-slate-600"}`}>
             {description}
           </p>
         </FadeUp>
@@ -146,21 +147,23 @@ function SectionHeading({ eyebrow, title, description }) {
   );
 }
 
-function SocialLink({ href, label }) {
+function SocialLink({ href, label, darkMode }) {
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/4 px-4 py-2 text-sm font-medium text-slate-300 transition hover:border-indigo-400/40 hover:bg-indigo-500/10 hover:text-white"
+      className={`inline-flex items-center rounded-full border px-4 py-2 text-sm font-medium transition-colors ${darkMode
+          ? "border-white/10 bg-white/5 text-slate-300 hover:border-indigo-400/30 hover:bg-indigo-500/10 hover:text-white"
+          : "border-slate-200 bg-slate-50 text-slate-600 hover:border-indigo-300 hover:bg-indigo-50 hover:text-slate-900"
+        }`}
     >
       {label}
-      <HiArrowUpRight className="text-indigo-400" />
     </a>
   );
 }
 
-function ProjectCard({ project }) {
+function ProjectCard({ project, darkMode }) {
   return (
     <motion.article
       variants={{
@@ -184,8 +187,7 @@ function ProjectCard({ project }) {
         duration: 0.25,
         ease: "easeOut",
       }}
-      className={`group relative overflow-hidden rounded-3xl border border-white/10 bg-white/3 p-6 transition-colors duration-300 hover:border-indigo-400/30 hover:bg-white/5 ${project.featured ? "lg:col-span-2 lg:p-8" : ""
-        }`}
+      className={`group relative overflow-hidden rounded-3xl border p-6 transition-colors duration-300 hover:border-indigo-400/30 ${darkMode ? "border-white/10 bg-white/3 hover:bg-white/5" : "border-slate-200 bg-white hover:bg-slate-50"} ${project.featured ? "lg:col-span-2 lg:p-8" : ""}`}
     >
       <div className="absolute right-0 top-0 h-32 w-32 rounded-full bg-indigo-500/10 blur-3xl transition group-hover:bg-indigo-500/20" />
 
@@ -206,11 +208,11 @@ function ProjectCard({ project }) {
           {project.type}
         </p>
 
-        <h3 className="text-2xl font-bold text-white sm:text-3xl">
+        <h3 className={`text-2xl font-bold sm:text-3xl ${darkMode ? "text-white" : "text-slate-900"}`}>
           {project.name}
         </h3>
 
-        <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-400 sm:text-base">
+        <p className={`mt-4 max-w-2xl text-sm leading-7 sm:text-base ${darkMode ? "text-slate-400" : "text-slate-600"}`}>
           {project.description}
         </p>
 
@@ -219,7 +221,7 @@ function ProjectCard({ project }) {
             {project.features.map((feature) => (
               <li
                 key={feature}
-                className="flex items-start gap-2 text-sm text-slate-300"
+                className={`flex items-start gap-2 text-sm ${darkMode ? "text-slate-300" : "text-slate-700"}`}
               >
                 <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-indigo-400" />
                 {feature}
@@ -232,7 +234,7 @@ function ProjectCard({ project }) {
           {project.tags.map((tag) => (
             <span
               key={tag}
-              className="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-xs text-slate-400"
+              className={`rounded-full border px-3 py-1 text-xs ${darkMode ? "border-white/10 bg-black/20 text-slate-400" : "border-slate-200 bg-slate-50 text-slate-600"}`}
             >
               {tag}
             </span>
@@ -245,7 +247,7 @@ function ProjectCard({ project }) {
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-slate-300 transition hover:border-white/20 hover:bg-white/5 hover:text-white"
+              className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition ${darkMode ? "border-white/10 text-slate-300 hover:border-white/20 hover:bg-white/5 hover:text-white" : "border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900"}`}
             >
               GitHub
               <HiArrowUpRight />
@@ -257,7 +259,7 @@ function ProjectCard({ project }) {
               href={project.live}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-indigo-100"
+              className="inline-flex items-center gap-2 rounded-full bg-indigo-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-indigo-400"
             >
               Live Demo
               <HiArrowUpRight />
@@ -273,11 +275,31 @@ function ProjectCard({ project }) {
 export default function Home() {
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const [darkMode, setDarkMode] = useState(() => {
+    if (typeof window === "undefined") return true;
+
+    const savedTheme = localStorage.getItem("portfolio-theme");
+
+    return savedTheme ? savedTheme === "dark" : true;
+  });
   const shouldReduceMotion = useReducedMotion();
+
+  useEffect(() => {
+    localStorage.setItem(
+      "portfolio-theme",
+      darkMode ? "dark" : "light"
+    );
+  }, [darkMode]);
 
 
   return (
-    <main className="min-h-screen overflow-hidden bg-[#050816] text-white">
+    <main
+      className={`min-h-screen overflow-hidden ${darkMode
+        ? "bg-[#050816] text-white"
+        : "bg-slate-50 text-slate-900"
+        }`}
+    >
       {/* Background glow */}
       <div className="pointer-events-none fixed inset-0 -z-10">
         <div className="absolute left-1/2 top-0 h-125 w-175 -translate-x-1/2 rounded-full bg-indigo-600/10 blur-[120px]" />
@@ -285,12 +307,17 @@ export default function Home() {
       </div>
 
       {/* Navbar */}
-      <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/5 bg-[#050816]/80 backdrop-blur-xl">
+      <header
+        className={`fixed left-0 right-0 top-0 z-50 border-b backdrop-blur-xl ${darkMode
+          ? "border-white/5 bg-[#050816]/80"
+          : "border-slate-200 bg-white/80"
+          }`}
+      >
         <nav className="mx-auto max-w-7xl px-5 lg:px-8">
           <div className="flex items-center justify-between py-4">
             <Link
               href="/"
-              className="text-xl font-black tracking-tight text-white"
+              className={`text-xl font-black tracking-tight ${darkMode ? "text-white" : "text-slate-900"}`}
               onClick={() => setMobileMenuOpen(false)}
             >
               TR<span className="text-indigo-400">.</span>
@@ -300,45 +327,49 @@ export default function Home() {
             <div className="hidden items-center gap-8 md:flex">
               <a
                 href="#home"
-                className="text-sm text-slate-300 transition hover:text-white"
+                className={`text-sm transition ${darkMode ? "text-slate-300 hover:text-white" : "text-slate-600 hover:text-slate-900"}`}
               >
                 Home
               </a>
 
               <a
                 href="#about"
-                className="text-sm text-slate-300 transition hover:text-white"
+                className={`text-sm transition ${darkMode ? "text-slate-300 hover:text-white" : "text-slate-600 hover:text-slate-900"}`}
               >
                 About
               </a>
 
               <a
                 href="#skills"
-                className="text-sm text-slate-300 transition hover:text-white"
+                className={`text-sm transition ${darkMode ? "text-slate-300 hover:text-white" : "text-slate-600 hover:text-slate-900"}`}
               >
                 Skills
               </a>
 
               <a
                 href="#projects"
-                className="text-sm text-slate-300 transition hover:text-white"
+                className={`text-sm transition ${darkMode ? "text-slate-300 hover:text-white" : "text-slate-600 hover:text-slate-900"}`}
               >
                 Projects
               </a>
 
               <a
                 href="#exploring"
-                className="text-sm text-slate-300 transition hover:text-white"
+                className={`text-sm transition ${darkMode ? "text-slate-300 hover:text-white" : "text-slate-600 hover:text-slate-900"}`}
               >
                 Exploring
               </a>
 
               <a
                 href="#contact"
-                className="text-sm text-slate-300 transition hover:text-white"
+                className={`text-sm transition ${darkMode ? "text-slate-300 hover:text-white" : "text-slate-600 hover:text-slate-900"}`}
               >
                 Contact
               </a>
+            </div>
+
+            <div className="hidden md:flex">
+              <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
             </div>
 
             {/* Desktop Resume */}
@@ -346,7 +377,7 @@ export default function Home() {
               href="/resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden rounded-full border border-indigo-400/30 bg-indigo-500/10 px-5 py-2 text-sm font-semibold text-indigo-300 transition hover:bg-indigo-500/20 sm:inline-flex md:hidden"
+              className={`hidden rounded-full border px-5 py-2 text-sm font-semibold transition sm:inline-flex md:hidden ${darkMode ? "border-indigo-400/30 bg-indigo-500/10 text-indigo-300 hover:bg-indigo-500/20" : "border-indigo-200 bg-indigo-50 text-indigo-600 hover:bg-indigo-100"}`}
             >
               Resume
             </a>
@@ -355,7 +386,7 @@ export default function Home() {
               href="/resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden rounded-full border border-indigo-400/30 bg-indigo-500/10 px-5 py-2 text-sm font-semibold text-indigo-300 transition hover:bg-indigo-500/20 md:inline-flex"
+              className={`hidden rounded-full border px-5 py-2 text-sm font-semibold transition md:inline-flex ${darkMode ? "border-indigo-400/30 bg-indigo-500/10 text-indigo-300 hover:bg-indigo-500/20" : "border-indigo-200 bg-indigo-50 text-indigo-600 hover:bg-indigo-100"}`}
             >
               Resume
             </a>
@@ -366,7 +397,7 @@ export default function Home() {
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileMenuOpen}
               onClick={() => setMobileMenuOpen((open) => !open)}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-slate-300 transition hover:border-indigo-400/30 hover:bg-indigo-500/10 hover:text-white md:hidden"
+              className={`inline-flex h-10 w-10 items-center justify-center rounded-xl border transition md:hidden ${darkMode ? "border-white/10 bg-white/5 text-slate-300 hover:border-indigo-400/30 hover:bg-indigo-500/10 hover:text-white" : "border-slate-200 bg-slate-100 text-slate-700 hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-600"}`}
             >
               {mobileMenuOpen ? (
                 <HiXMark className="text-xl" />
@@ -381,7 +412,7 @@ export default function Home() {
             className={`overflow-hidden transition-all duration-300 md:hidden ${mobileMenuOpen ? "max-h-96 pb-5 opacity-100" : "max-h-0 opacity-0"
               }`}
           >
-            <div className="rounded-2xl border border-white/10 bg-white/3 p-3">
+            <div className={`rounded-2xl border p-3 ${darkMode ? "border-white/10 bg-white/3" : "border-slate-200 bg-white"}`}>
               <div className="flex flex-col">
                 {[
                   ["Home", "#home"],
@@ -395,11 +426,15 @@ export default function Home() {
                     key={label}
                     href={href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="rounded-xl px-4 py-3 text-sm font-medium text-slate-300 transition hover:bg-indigo-500/10 hover:text-white"
+                    className={`rounded-xl px-4 py-3 text-sm font-medium transition ${darkMode ? "text-slate-300 hover:bg-indigo-500/10 hover:text-white" : "text-slate-600 hover:bg-indigo-50 hover:text-slate-900"}`}
                   >
                     {label}
                   </a>
                 ))}
+
+                <div className="mt-2 flex justify-center">
+                  <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
+                </div>
 
                 <a
                   href="/resume.pdf"
@@ -452,15 +487,15 @@ export default function Home() {
               </span>
             </h1>
 
-            <h2 className="mt-7 text-xl font-semibold text-slate-200 sm:text-2xl">
+            <h2 className={`mt-7 text-xl font-semibold sm:text-2xl ${darkMode ? "text-slate-200" : "text-slate-800"}`}>
               Full-Stack Web Developer{" "}
               <span className="text-indigo-400">|</span>{" "}
-              <span className="text-slate-400">
+              <span className={darkMode ? "text-slate-400" : "text-slate-600"}>
                 Software Engineer
               </span>
             </h2>
 
-            <p className="mt-6 max-w-2xl text-base leading-8 text-slate-400 sm:text-lg">
+            <p className={`mt-6 max-w-2xl text-base leading-8 sm:text-lg ${darkMode ? "text-slate-400" : "text-slate-600"}`}>
               I build responsive, user-focused web applications with modern
               technologies. I enjoy turning ideas into practical products while
               continuously improving my skills in software engineering, backend
@@ -498,7 +533,7 @@ export default function Home() {
                     ? undefined
                     : { scale: 0.98 }
                 }
-                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/3 px-6 py-3 font-semibold text-slate-200 transition hover:bg-white/[0.07]"
+                className={`inline-flex items-center gap-2 rounded-full border px-6 py-3 font-semibold transition ${darkMode ? "border-white/10 bg-white/3 text-slate-200 hover:bg-white/[0.07]" : "border-slate-200 bg-white text-slate-700 hover:bg-slate-100"}`}
               >
                 Contact Me
               </motion.a>
@@ -508,11 +543,13 @@ export default function Home() {
               <SocialLink
                 href="https://github.com/taifurrahman27"
                 label="GitHub"
+                darkMode={darkMode}
               />
 
               <SocialLink
                 href="https://www.linkedin.com/in/taifurrahmanjs"
                 label="LinkedIn"
+                darkMode={darkMode}
               />
             </div>
           </motion.div>
@@ -541,7 +578,7 @@ export default function Home() {
           >
             <div className="absolute inset-0 scale-90 rounded-full bg-indigo-500/20 blur-[90px]" />
 
-            <div className="relative aspect-square overflow-hidden rounded-[2.5rem] border border-white/10 bg-white/4 p-3 shadow-2xl shadow-indigo-950/30">
+            <div className={`relative aspect-square overflow-hidden rounded-[2.5rem] border p-3 shadow-2xl shadow-indigo-950/30 ${darkMode ? "border-white/10 bg-white/4" : "border-slate-200 bg-white"}`}>
               <div className="relative h-full overflow-hidden rounded-4xl">
                 <Image
                   src="/profile.jpg"
@@ -566,13 +603,13 @@ export default function Home() {
                 delay: 0.65,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="absolute -bottom-5 -left-5 rounded-2xl border border-white/10 bg-[#0b1020]/90 px-5 py-4 shadow-xl backdrop-blur-xl"
+              className={`absolute -bottom-5 -left-5 rounded-2xl border px-5 py-4 shadow-xl backdrop-blur-xl ${darkMode ? "border-white/10 bg-[#0b1020]/90" : "border-slate-200 bg-white/90"}`}
             >
               <p className="text-xs text-slate-500">
                 Currently exploring
               </p>
 
-              <p className="mt-1 font-semibold text-white">
+              <p className={`mt-1 font-semibold ${darkMode ? "text-white" : "text-slate-900"}`}>
                 MCP + AI Tools
               </p>
             </motion.div>
@@ -604,17 +641,18 @@ export default function Home() {
           eyebrow="01 — About"
           title="Building with curiosity and purpose."
           description="My journey is centered around learning by building, solving real problems, and continuously improving the way I write and structure software."
+          darkMode={darkMode}
         />
 
         <div className="grid gap-6 lg:grid-cols-3">
-          <div className="rounded-3xl border border-white/10 bg-white/3 p-7 lg:col-span-2">
-            <p className="text-lg leading-8 text-slate-300">
+          <div className={`rounded-3xl border p-7 lg:col-span-2 ${darkMode ? "border-white/10 bg-white/3" : "border-slate-200 bg-white"}`}>
+            <p className={`text-lg leading-8 ${darkMode ? "text-slate-300" : "text-slate-700"}`}>
               I am a Software Engineer and Full-Stack Web Developer with
               hands-on experience building responsive, user-focused
               applications using the MERN stack and modern web technologies.
             </p>
 
-            <p className="mt-5 leading-8 text-slate-400">
+            <p className={`mt-5 leading-8 ${darkMode ? "text-slate-400" : "text-slate-600"}`}>
               I enjoy working across the stack—from designing interfaces and
               building REST APIs to working with databases, authentication,
               payments, and deployment. My goal is to join a growth-driven
@@ -623,30 +661,30 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="rounded-3xl border border-white/10 bg-white/3 p-7">
+          <div className={`rounded-3xl border p-7 ${darkMode ? "border-white/10 bg-white/3" : "border-slate-200 bg-white"}`}>
             <p className="text-sm uppercase tracking-widest text-slate-500">
               Education
             </p>
 
-            <h3 className="mt-4 text-xl font-bold text-white">
+            <h3 className={`mt-4 text-xl font-bold ${darkMode ? "text-white" : "text-slate-900"}`}>
               Jagannath University
             </h3>
 
-            <p className="mt-2 text-sm leading-6 text-slate-400">
+            <p className={`mt-2 text-sm leading-6 ${darkMode ? "text-slate-400" : "text-slate-600"}`}>
               B.S.S. & M.S.S. in Economics
             </p>
 
-            <div className="my-7 h-px bg-white/10" />
+            <div className={`my-7 h-px ${darkMode ? "bg-white/10" : "bg-slate-200"}`} />
 
             <p className="text-sm uppercase tracking-widest text-slate-500">
               Training
             </p>
 
-            <h3 className="mt-4 text-xl font-bold text-white">
+            <h3 className={`mt-4 text-xl font-bold ${darkMode ? "text-white" : "text-slate-900"}`}>
               Programming Hero
             </h3>
 
-            <p className="mt-2 text-sm leading-6 text-slate-400">
+            <p className={`mt-2 text-sm leading-6 ${darkMode ? "text-slate-400" : "text-slate-600"}`}>
               Complete Web Development Course
             </p>
           </div>
@@ -654,12 +692,13 @@ export default function Home() {
       </section>
 
       {/* Skills */}
-      <section id="skills" className="border-y border-white/5 bg-white/1.5">
+      <section id="skills" className={`border-y ${darkMode ? "border-white/5 bg-white/1.5" : "border-slate-200 bg-slate-100/70"}`}>
         <div className="mx-auto max-w-7xl px-5 py-24 lg:px-8">
           <SectionHeading
             eyebrow="02 — Skills"
             title="My technical toolkit."
             description="Technologies and tools I use to design, build, test, and ship modern web applications."
+            darkMode={darkMode}
           />
 
           <StaggerContainer
@@ -671,13 +710,13 @@ export default function Home() {
 
               return (
                 <StaggerItem key={category.title}>
-                  <div className="h-full rounded-3xl border border-white/10 bg-[#080d1d]/80 p-6 transition duration-300 hover:-translate-y-1 hover:border-indigo-400/20">
+                  <div className={`h-full rounded-3xl border p-6 transition duration-300 hover:-translate-y-1 hover:border-indigo-400/20 ${darkMode ? "border-white/10 bg-[#080d1d]/80" : "border-slate-200 bg-white"}`}>
                     <div className="mb-5 flex items-center gap-3">
                       <div className="rounded-xl bg-indigo-500/10 p-3 text-indigo-400">
                         <Icon className="text-xl" />
                       </div>
 
-                      <h3 className="font-semibold text-white">
+                      <h3 className={`font-semibold ${darkMode ? "text-white" : "text-slate-900"}`}>
                         {category.title}
                       </h3>
                     </div>
@@ -686,7 +725,7 @@ export default function Home() {
                       {category.items.map((item) => (
                         <span
                           key={item}
-                          className="rounded-lg border border-white/10 bg-white/3 px-3 py-2 text-xs text-slate-400"
+                          className={`rounded-lg border px-3 py-2 text-xs ${darkMode ? "border-white/10 bg-white/3 text-slate-400" : "border-slate-200 bg-slate-50 text-slate-600"}`}
                         >
                           {item}
                         </span>
@@ -706,6 +745,7 @@ export default function Home() {
           eyebrow="03 — Selected Work"
           title="Projects that turn ideas into products."
           description="A selection of applications I've built while developing my full-stack skills and exploring real-world product problems."
+          darkMode={darkMode}
         />
 
         <StaggerContainer
@@ -714,7 +754,7 @@ export default function Home() {
         >
           {projects.map((project) => (
             <StaggerItem key={project.name}>
-              <ProjectCard project={project} />
+              <ProjectCard project={project} darkMode={darkMode} />
             </StaggerItem>
           ))}
         </StaggerContainer>
@@ -723,13 +763,14 @@ export default function Home() {
       {/* Exploring */}
       <section
         id="exploring"
-        className="border-y border-white/5 bg-white/1.5"
+        className={`border-y ${darkMode ? "border-white/5 bg-white/1.5" : "border-slate-200 bg-slate-100/70"}`}
       >
         <div className="mx-auto max-w-7xl px-5 py-24 lg:px-8">
           <SectionHeading
             eyebrow="04 — What's Next"
             title="What I'm exploring."
             description="I'm not stopping at building web applications. I'm exploring how software, AI, and developer tools can work together."
+            darkMode={darkMode}
           />
 
           <StaggerContainer
@@ -749,7 +790,7 @@ export default function Home() {
                       duration: 0.25,
                       ease: "easeOut",
                     }}
-                    className="group h-full rounded-3xl border border-white/10 bg-white/3 p-7 transition-colors duration-300 hover:border-indigo-400/30"
+                    className={`group h-full rounded-3xl border p-7 transition-colors duration-300 hover:border-indigo-400/30 ${darkMode ? "border-white/10 bg-white/3" : "border-slate-200 bg-white"}`}
                   >
                     <div className="flex items-start gap-5">
                       <motion.div
@@ -766,11 +807,11 @@ export default function Home() {
                       </motion.div>
 
                       <div>
-                        <h3 className="text-xl font-bold text-white">
+                        <h3 className={`text-xl font-bold ${darkMode ? "text-white" : "text-slate-900"}`}>
                           {item.title}
                         </h3>
 
-                        <p className="mt-3 leading-7 text-slate-400">
+                        <p className={`mt-3 leading-7 ${darkMode ? "text-slate-400" : "text-slate-600"}`}>
                           {item.description}
                         </p>
                       </div>
@@ -790,7 +831,7 @@ export default function Home() {
         className="mx-auto max-w-7xl px-5 py-24 lg:px-8"
       >
         <FadeUp distance={35}>
-          <div className="relative overflow-hidden rounded-4xl border border-indigo-400/20 bg-indigo-500/6 p-8 sm:p-12 lg:p-16">
+          <div className={`relative overflow-hidden rounded-4xl border p-8 sm:p-12 lg:p-16 ${darkMode ? "border-indigo-400/20 bg-indigo-500/6" : "border-indigo-200 bg-indigo-50/70"}`}>
             <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-indigo-500/10 blur-3xl" />
 
             <div className="relative grid gap-12 lg:grid-cols-2 lg:items-end">
@@ -799,11 +840,11 @@ export default function Home() {
                   05 — Contact
                 </p>
 
-                <h2 className="max-w-2xl text-4xl font-black tracking-tight text-white sm:text-5xl">
+                <h2 className={`max-w-2xl text-4xl font-black tracking-tight sm:text-5xl ${darkMode ? "text-white" : "text-slate-900"}`}>
                   Let&apos;s build something meaningful.
                 </h2>
 
-                <p className="mt-5 max-w-xl leading-7 text-slate-400">
+                <p className={`mt-5 max-w-xl leading-7 ${darkMode ? "text-slate-400" : "text-slate-600"}`}>
                   Whether you have an opportunity, a project idea, or simply want
                   to connect, I&apos;d be happy to hear from you.
                 </p>
@@ -812,7 +853,7 @@ export default function Home() {
               <div className="space-y-4">
                 <a
                   href="mailto:taif.jnu@gmail.com"
-                  className="group flex items-center justify-between rounded-2xl border border-white/10 bg-black/20 p-5 transition hover:border-indigo-400/30 hover:bg-black/30"
+                  className={`group flex items-center justify-between rounded-2xl border p-5 transition hover:border-indigo-400/30 ${darkMode ? "border-white/10 bg-black/20 hover:bg-black/30" : "border-slate-200 bg-white hover:bg-indigo-50/40"}`}
                 >
                   <div className="flex items-center gap-4">
                     <div className="rounded-xl bg-indigo-500/10 p-3 text-indigo-400">
@@ -822,7 +863,7 @@ export default function Home() {
                     <div>
                       <p className="text-xs text-slate-500">Email</p>
 
-                      <p className="mt-1 text-sm font-medium text-white sm:text-base">
+                      <p className={`mt-1 text-sm font-medium sm:text-base ${darkMode ? "text-white" : "text-slate-900"}`}>
                         taif.jnu@gmail.com
                       </p>
                     </div>
@@ -831,7 +872,7 @@ export default function Home() {
                   <HiArrowUpRight className="text-slate-500 transition group-hover:text-indigo-400" />
                 </a>
 
-                <div className="flex items-center gap-4 rounded-2xl border border-white/10 bg-black/20 p-5">
+                <div className={`flex items-center gap-4 rounded-2xl border p-5 ${darkMode ? "border-white/10 bg-black/20" : "border-slate-200 bg-white"}`}>
                   <div className="rounded-xl bg-indigo-500/10 p-3 text-indigo-400">
                     <HiMapPin className="text-xl" />
                   </div>
@@ -839,7 +880,7 @@ export default function Home() {
                   <div>
                     <p className="text-xs text-slate-500">Based in</p>
 
-                    <p className="mt-1 text-sm font-medium text-white sm:text-base">
+                    <p className={`mt-1 text-sm font-medium sm:text-base ${darkMode ? "text-white" : "text-slate-900"}`}>
                       Dhaka, Bangladesh
                     </p>
                   </div>
@@ -849,11 +890,13 @@ export default function Home() {
                   <SocialLink
                     href="https://github.com/taifurrahman27"
                     label="GitHub"
+                    darkMode={darkMode}
                   />
 
                   <SocialLink
                     href="https://www.linkedin.com/in/taifurrahmanjs"
                     label="LinkedIn"
+                    darkMode={darkMode}
                   />
                 </div>
               </div>
@@ -864,7 +907,7 @@ export default function Home() {
 
 
       {/* Footer */}
-      <footer className="border-t border-white/5">
+      <footer className={`border-t ${darkMode ? "border-white/5" : "border-slate-200"}`}>
         <div className="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-8 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between lg:px-8">
           <p>
             © {new Date().getFullYear()} MD. TAIFUR RAHMAN JASIM. All rights
@@ -876,7 +919,10 @@ export default function Home() {
               href="https://github.com/taifurrahman27"
               target="_blank"
               rel="noopener noreferrer"
-              className="transition hover:text-white"
+              className={`transition-colors ${darkMode
+                ? "text-slate-400 hover:text-white"
+                : "text-slate-600 hover:text-slate-900"
+                }`}
             >
               GitHub
             </a>
@@ -885,7 +931,10 @@ export default function Home() {
               href="https://www.linkedin.com/in/taifurrahmanjs"
               target="_blank"
               rel="noopener noreferrer"
-              className="transition hover:text-white"
+              className={`transition-colors ${darkMode
+                ? "text-slate-400 hover:text-white"
+                : "text-slate-600 hover:text-slate-900"
+                }`}
             >
               LinkedIn
             </a>
