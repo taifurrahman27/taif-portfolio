@@ -28,9 +28,11 @@ import {
   HiBars3,
   HiXMark,
   HiOutlineEnvelope,
+  HiOutlineArrowUpRight,
 } from "react-icons/hi2";
 import ThemeToggle from "@/components/theme/ThemeTogle";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
+import ProjectCard from "@/components/project/ProjectCard";
 
 const skills = {
   Languages: ["JavaScript (ES6+)", "TypeScript", "HTML5", "CSS3"],
@@ -165,114 +167,6 @@ function SocialLink({ href, label, darkMode }) {
   );
 }
 
-function ProjectCard({ project, darkMode }) {
-  return (
-    <motion.article
-      variants={{
-        hidden: {
-          opacity: 0,
-          y: 35,
-        },
-        visible: {
-          opacity: 1,
-          y: 0,
-          transition: {
-            duration: 0.6,
-            ease: [0.22, 1, 0.36, 1],
-          },
-        },
-      }}
-      whileHover={{
-        y: -6,
-      }}
-      transition={{
-        duration: 0.25,
-        ease: "easeOut",
-      }}
-      className={`group relative overflow-hidden rounded-3xl border p-6 transition-colors duration-300 hover:border-indigo-400/30 ${darkMode ? "border-white/10 bg-white/3 hover:bg-white/5" : "border-slate-200 bg-white hover:bg-slate-50"} ${project.featured ? "lg:col-span-2 lg:p-8" : ""}`}
-    >
-      <div className="absolute right-0 top-0 h-32 w-32 rounded-full bg-indigo-500/10 blur-3xl transition group-hover:bg-indigo-500/20" />
-
-      <div className="relative">
-        <div className="mb-8 flex items-center justify-between">
-          <span className="font-mono text-sm text-indigo-400">
-            {project.number}
-          </span>
-
-          {project.featured && (
-            <span className="rounded-full border border-indigo-400/20 bg-indigo-500/10 px-3 py-1 text-xs font-semibold text-indigo-300">
-              Featured Project
-            </span>
-          )}
-        </div>
-
-        <p className="mb-2 text-sm font-medium text-slate-500">
-          {project.type}
-        </p>
-
-        <h3 className={`text-2xl font-bold sm:text-3xl ${darkMode ? "text-white" : "text-slate-900"}`}>
-          {project.name}
-        </h3>
-
-        <p className={`mt-4 max-w-2xl text-sm leading-7 sm:text-base ${darkMode ? "text-slate-400" : "text-slate-600"}`}>
-          {project.description}
-        </p>
-
-        {project.features && (
-          <ul className="mt-6 grid gap-3 sm:grid-cols-2">
-            {project.features.map((feature) => (
-              <li
-                key={feature}
-                className={`flex items-start gap-2 text-sm ${darkMode ? "text-slate-300" : "text-slate-700"}`}
-              >
-                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-indigo-400" />
-                {feature}
-              </li>
-            ))}
-          </ul>
-        )}
-
-        <div className="mt-7 flex flex-wrap gap-2">
-          {project.tags.map((tag) => (
-            <span
-              key={tag}
-              className={`rounded-full border px-3 py-1 text-xs ${darkMode ? "border-white/10 bg-black/20 text-slate-400" : "border-slate-200 bg-slate-50 text-slate-600"}`}
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-
-        <div className="mt-8 flex flex-wrap gap-3">
-          {project.github && project.github !== "#" && (
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition ${darkMode ? "border-white/10 text-slate-300 hover:border-white/20 hover:bg-white/5 hover:text-white" : "border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900"}`}
-            >
-              GitHub
-              <HiArrowUpRight />
-            </a>
-          )}
-
-          {project.live && project.live !== "#" && (
-            <a
-              href={project.live}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-indigo-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-indigo-400"
-            >
-              Live Demo
-              <HiArrowUpRight />
-            </a>
-          )}
-        </div>
-      </div>
-    </motion.article>
-  );
-}
-
 
 export default function Home() {
 
@@ -331,7 +225,7 @@ export default function Home() {
               className={`text-xl font-black tracking-tight ${darkMode ? "text-white" : "text-slate-900"}`}
               onClick={() => setMobileMenuOpen(false)}
             >
-              TR<span className="text-indigo-400">.</span>
+              TAIF<span className="text-indigo-400">.</span>
             </Link>
 
             {/* Desktop Navigation */}
@@ -388,18 +282,26 @@ export default function Home() {
               href="/resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className={`hidden rounded-full border px-5 py-2 text-sm font-semibold transition sm:inline-flex md:hidden ${darkMode ? "border-indigo-400/30 bg-indigo-500/10 text-indigo-300 hover:bg-indigo-500/20" : "border-indigo-200 bg-indigo-50 text-indigo-600 hover:bg-indigo-100"}`}
+              className={`group hidden items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-semibold backdrop-blur-md transition-all duration-300 sm:inline-flex md:hidden ${darkMode
+                ? "border-white/10 bg-white/5 text-slate-300 shadow-[0_0_20px_rgba(99,102,241,0.06)] hover:-translate-y-0.5 hover:border-indigo-400/30 hover:bg-indigo-500/10 hover:text-white hover:shadow-[0_8px_30px_rgba(99,102,241,0.18)]"
+                : "border-slate-200 bg-white/70 text-slate-700 shadow-[0_0_20px_rgba(99,102,241,0.05)] hover:-translate-y-0.5 hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-600 hover:shadow-[0_8px_30px_rgba(99,102,241,0.12)]"
+                }`}
             >
               Resume
+              <HiOutlineArrowUpRight className="text-base transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </a>
 
             <a
               href="/resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className={`hidden rounded-full border px-5 py-2 text-sm font-semibold transition md:inline-flex ${darkMode ? "border-indigo-400/30 bg-indigo-500/10 text-indigo-300 hover:bg-indigo-500/20" : "border-indigo-200 bg-indigo-50 text-indigo-600 hover:bg-indigo-100"}`}
+              className={`group hidden items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-semibold backdrop-blur-md transition-all duration-300 md:inline-flex ${darkMode
+                ? "border-white/10 bg-white/5 text-slate-300 shadow-[0_0_20px_rgba(99,102,241,0.06)] hover:-translate-y-0.5 hover:border-indigo-400/30 hover:bg-indigo-500/10 hover:text-white hover:shadow-[0_8px_30px_rgba(99,102,241,0.18)]"
+                : "border-slate-200 bg-white/70 text-slate-700 shadow-[0_0_20px_rgba(99,102,241,0.05)] hover:-translate-y-0.5 hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-600 hover:shadow-[0_8px_30px_rgba(99,102,241,0.12)]"
+                }`}
             >
               Resume
+              <HiOutlineArrowUpRight className="text-base transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </a>
 
             {/* Mobile Menu Button */}
@@ -452,9 +354,13 @@ export default function Home() {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="mt-2 inline-flex items-center justify-center rounded-xl bg-indigo-500 px-4 py-3 text-sm font-semibold text-white transition hover:bg-indigo-400"
+                  className={`group mt-2 inline-flex items-center justify-center gap-2 rounded-xl border px-4 py-3 text-sm font-semibold backdrop-blur-md transition-all duration-300 ${darkMode
+                    ? "border-indigo-400/20 bg-indigo-500/10 text-indigo-300 shadow-[0_0_20px_rgba(99,102,241,0.08)] hover:border-indigo-400/40 hover:bg-indigo-500/20 hover:text-white hover:shadow-[0_8px_30px_rgba(99,102,241,0.2)]"
+                    : "border-indigo-200 bg-indigo-50/80 text-indigo-600 shadow-[0_0_20px_rgba(99,102,241,0.06)] hover:border-indigo-300 hover:bg-indigo-100 hover:shadow-[0_8px_30px_rgba(99,102,241,0.15)]"
+                    }`}
                 >
                   View Resume
+                  <HiOutlineArrowUpRight className="text-base transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                 </a>
               </div>
             </div>
@@ -519,17 +425,17 @@ export default function Home() {
                 whileHover={
                   shouldReduceMotion
                     ? undefined
-                    : { scale: 1.03 }
+                    : { scale: 1.03, y: -2 }
                 }
                 whileTap={
                   shouldReduceMotion
                     ? undefined
                     : { scale: 0.98 }
                 }
-                className="group inline-flex items-center gap-2 rounded-full bg-indigo-500 px-6 py-3 font-semibold text-white transition hover:bg-indigo-400"
+                className="group inline-flex items-center gap-2 rounded-full bg-linear-to-r from-indigo-500 to-violet-500 px-6 py-3 font-semibold text-white shadow-[0_8px_30px_rgba(99,102,241,0.25)] transition-all duration-300 hover:from-indigo-400 hover:to-violet-400 hover:shadow-[0_12px_40px_rgba(99,102,241,0.4)]"
               >
                 View Projects
-                <HiOutlineArrowRight className="transition-transform duration-200 group-hover:translate-x-1" />
+                <HiOutlineArrowRight className="text-lg transition-transform duration-300 group-hover:translate-x-1" />
               </motion.a>
 
               <motion.a
@@ -619,15 +525,45 @@ export default function Home() {
                 delay: 0.65,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className={`absolute -bottom-5 -left-5 rounded-2xl border px-5 py-4 shadow-xl backdrop-blur-xl ${darkMode ? "border-white/10 bg-[#0b1020]/90" : "border-slate-200 bg-white/90"}`}
+              whileHover={
+                shouldReduceMotion
+                  ? undefined
+                  : {
+                    y: -3,
+                    scale: 1.02,
+                  }
+              }
+              className={`group absolute -bottom-5 left-2 rounded-2xl border px-5 py-4 shadow-xl backdrop-blur-xl transition-all duration-300 sm:left-4 ${darkMode
+                ? "border-indigo-400/20 bg-[#0b1020]/90 shadow-[0_0_30px_rgba(99,102,241,0.18)] hover:border-indigo-400/40 hover:shadow-[0_0_45px_rgba(99,102,241,0.28)]"
+                : "border-indigo-200 bg-white/90 shadow-[0_0_25px_rgba(99,102,241,0.12)] hover:border-indigo-300 hover:shadow-[0_0_40px_rgba(99,102,241,0.2)]"
+                }`}
             >
-              <p className="text-xs text-slate-500">
-                Currently exploring
-              </p>
+              <div className="flex items-center gap-3">
+                <span className="relative flex h-2.5 w-2.5 shrink-0">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-indigo-400 opacity-60" />
+                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-indigo-400" />
+                </span>
 
-              <p className={`mt-1 font-semibold ${darkMode ? "text-white" : "text-slate-900"}`}>
-                MCP + AI Tools
-              </p>
+                <div>
+                  <p
+                    className={`text-[10px] font-semibold uppercase tracking-[0.18em] ${darkMode ? "text-slate-500" : "text-slate-500"
+                      }`}
+                  >
+                    Currently exploring
+                  </p>
+
+                  <p
+                    className={`mt-1 text-sm font-bold tracking-tight ${darkMode ? "text-white" : "text-slate-900"
+                      }`}
+                  >
+                    <span className="text-indigo-400">MCP</span>
+                    <span className={darkMode ? "text-slate-500" : "text-slate-400"}>
+                      {" + "}
+                    </span>
+                    <span className="text-violet-400">AI Tools</span>
+                  </p>
+                </div>
+              </div>
             </motion.div>
           </motion.div>
         </div>
@@ -727,17 +663,33 @@ export default function Home() {
               return (
                 <StaggerItem key={category.title}>
                   <div
-                    className={`group h-full rounded-3xl border p-6 transition-all duration-500 hover:-translate-y-1 ${darkMode
-                      ? "border-white/10 bg-[#080d1d]/80 shadow-[0_0_25px_rgba(99,102,241,0.12)] hover:border-indigo-400/30 hover:shadow-[0_0_45px_rgba(99,102,241,0.3),0_0_80px_rgba(139,92,246,0.15)]"
-                      : "border-slate-200 bg-white shadow-[0_0_20px_rgba(99,102,241,0.08)] hover:border-indigo-400/40 hover:shadow-[0_0_40px_rgba(99,102,241,0.2),0_0_70px_rgba(139,92,246,0.1)]"
+                    className={`group relative h-full overflow-hidden rounded-3xl border p-6 transition-all duration-500 hover:-translate-y-1 ${darkMode
+                      ? "border-white/10 bg-[#080d1d]/80 shadow-[0_0_25px_rgba(99,102,241,0.1)] hover:border-indigo-400/30 hover:shadow-[0_0_45px_rgba(99,102,241,0.28),0_0_80px_rgba(139,92,246,0.14)]"
+                      : "border-slate-200 bg-white shadow-[0_0_20px_rgba(99,102,241,0.07)] hover:border-indigo-300 hover:shadow-[0_0_40px_rgba(99,102,241,0.18),0_0_70px_rgba(139,92,246,0.08)]"
                       }`}
                   >
+                    {/* Subtle top accent */}
+                    <div
+                      className={`absolute inset-x-6 top-0 h-px transition-all duration-500 ${darkMode
+                        ? "bg-linear-to-r from-transparent via-indigo-400/0 to-transparent group-hover:via-indigo-400/70"
+                        : "bg-linear-to-r from-transparent via-indigo-400/0 to-transparent group-hover:via-indigo-400/50"
+                        }`}
+                    />
+
                     <div className="mb-5 flex items-center gap-3">
-                      <div className="rounded-xl bg-indigo-500/10 p-3 text-indigo-400">
-                        <Icon className="text-xl" />
+                      <div
+                        className={`rounded-xl border p-3 transition-all duration-300 ${darkMode
+                          ? "border-indigo-400/10 bg-indigo-500/10 text-indigo-400 group-hover:border-indigo-400/20 group-hover:bg-indigo-500/15 group-hover:text-indigo-300 group-hover:shadow-[0_0_20px_rgba(99,102,241,0.2)]"
+                          : "border-indigo-100 bg-indigo-50 text-indigo-500 group-hover:border-indigo-200 group-hover:bg-indigo-100 group-hover:text-indigo-600 group-hover:shadow-[0_0_20px_rgba(99,102,241,0.12)]"
+                          }`}
+                      >
+                        <Icon className="text-xl transition-transform duration-300 group-hover:scale-110" />
                       </div>
 
-                      <h3 className={`font-semibold ${darkMode ? "text-white" : "text-slate-900"}`}>
+                      <h3
+                        className={`font-semibold ${darkMode ? "text-white" : "text-slate-900"
+                          }`}
+                      >
                         {category.title}
                       </h3>
                     </div>
@@ -746,7 +698,10 @@ export default function Home() {
                       {category.items.map((item) => (
                         <span
                           key={item}
-                          className={`rounded-lg border px-3 py-2 text-xs ${darkMode ? "border-white/10 bg-white/3 text-slate-400" : "border-slate-200 bg-slate-50 text-slate-600"}`}
+                          className={`rounded-lg border px-3 py-2 text-xs font-medium transition-all duration-300 ${darkMode
+                            ? "border-white/10 bg-white/3 text-slate-400 hover:border-indigo-400/20 hover:bg-indigo-500/10 hover:text-indigo-300"
+                            : "border-slate-200 bg-slate-50 text-slate-600 hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-600"
+                            }`}
                         >
                           {item}
                         </span>
