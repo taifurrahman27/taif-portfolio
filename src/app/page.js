@@ -33,6 +33,7 @@ import projects from "@/data/projects";
 import SkillsSection from "@/components/skills/SkillsSection";
 import ExplorationsSection from "@/components/explorations/ExplorationsSection";
 import Footer from "@/components/footer/Footer";
+import TypewriterText from "@/components/common/TypewriterText";
 
 function SectionHeading({ eyebrow, title, description, darkMode }) {
   return (
@@ -313,12 +314,17 @@ export default function Home() {
               </span>
             </h1>
 
-            <h2 className={`mt-7 text-xl font-semibold sm:text-2xl ${darkMode ? "text-slate-200" : "text-slate-800"}`}>
-              Full-Stack Web Developer{" "}
-              <span className="text-indigo-400">|</span>{" "}
-              <span className={darkMode ? "text-slate-400" : "text-slate-600"}>
-                Software Engineer
-              </span>
+            <h2
+              className={`mt-7 text-xl font-semibold sm:text-2xl ${darkMode ? "text-slate-200" : "text-slate-800"
+                }`}
+            >
+              <TypewriterText
+                firstText="Full-Stack Web Developer"
+                secondText="Software Engineer"
+                speed={60}
+                delay={500}
+                secondClassName="bg-linear-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent"
+              />
             </h2>
 
             <p className={`mt-6 max-w-2xl text-base leading-8 sm:text-lg ${darkMode ? "text-slate-400" : "text-slate-600"}`}>
