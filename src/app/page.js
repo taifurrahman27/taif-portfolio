@@ -27,8 +27,10 @@ import {
   HiSparkles,
   HiBars3,
   HiXMark,
+  HiOutlineEnvelope,
 } from "react-icons/hi2";
 import ThemeToggle from "@/components/theme/ThemeTogle";
+import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 
 const skills = {
   Languages: ["JavaScript (ES6+)", "TypeScript", "HTML5", "CSS3"],
@@ -277,20 +279,29 @@ export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const [darkMode, setDarkMode] = useState(() => {
-    if (typeof window === "undefined") return true;
+    if (typeof window === "undefined") {
+      return null;
+    }
 
     const savedTheme = localStorage.getItem("portfolio-theme");
 
-    return savedTheme ? savedTheme === "dark" : true;
+    return savedTheme !== "light";
   });
+
   const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
+    if (darkMode === null) return;
+
     localStorage.setItem(
       "portfolio-theme",
       darkMode ? "dark" : "light"
     );
   }, [darkMode]);
+
+  if (darkMode === null) {
+    return null;
+  }
 
 
   return (
@@ -578,14 +589,19 @@ export default function Home() {
           >
             <div className="absolute inset-0 scale-90 rounded-full bg-indigo-500/20 blur-[90px]" />
 
-            <div className={`relative aspect-square overflow-hidden rounded-[2.5rem] border p-3 shadow-2xl shadow-indigo-950/30 ${darkMode ? "border-white/10 bg-white/4" : "border-slate-200 bg-white"}`}>
-              <div className="relative h-full overflow-hidden rounded-4xl">
+            <div
+              className={`group relative aspect-square overflow-hidden rounded-full border-2 p-3 transition-all duration-500 ${darkMode
+                ? "border-indigo-400/60 bg-white/4 shadow-[0_0_35px_rgba(99,102,241,0.45)] hover:border-indigo-300 hover:shadow-[0_0_75px_rgba(99,102,241,0.8),0_0_120px_rgba(139,92,246,0.45)]"
+                : "border-indigo-400/60 bg-white shadow-[0_0_30px_rgba(99,102,241,0.3)] hover:border-indigo-500 hover:shadow-[0_0_65px_rgba(99,102,241,0.55),0_0_100px_rgba(139,92,246,0.3)]"
+                }`}
+            >
+              <div className="relative h-full overflow-hidden rounded-full">
                 <Image
                   src="/profile.jpg"
                   alt="MD. Taifur Rahman Jasim"
                   fill
                   priority
-                  className="object-cover"
+                  className="object-cover transition-transform duration-700 group-hover:scale-103"
                   sizes="(max-width: 1024px) 80vw, 400px"
                 />
               </div>
@@ -710,7 +726,12 @@ export default function Home() {
 
               return (
                 <StaggerItem key={category.title}>
-                  <div className={`h-full rounded-3xl border p-6 transition duration-300 hover:-translate-y-1 hover:border-indigo-400/20 ${darkMode ? "border-white/10 bg-[#080d1d]/80" : "border-slate-200 bg-white"}`}>
+                  <div
+                    className={`group h-full rounded-3xl border p-6 transition-all duration-500 hover:-translate-y-1 ${darkMode
+                      ? "border-white/10 bg-[#080d1d]/80 shadow-[0_0_25px_rgba(99,102,241,0.12)] hover:border-indigo-400/30 hover:shadow-[0_0_45px_rgba(99,102,241,0.3),0_0_80px_rgba(139,92,246,0.15)]"
+                      : "border-slate-200 bg-white shadow-[0_0_20px_rgba(99,102,241,0.08)] hover:border-indigo-400/40 hover:shadow-[0_0_40px_rgba(99,102,241,0.2),0_0_70px_rgba(139,92,246,0.1)]"
+                      }`}
+                  >
                     <div className="mb-5 flex items-center gap-3">
                       <div className="rounded-xl bg-indigo-500/10 p-3 text-indigo-400">
                         <Icon className="text-xl" />
@@ -790,7 +811,10 @@ export default function Home() {
                       duration: 0.25,
                       ease: "easeOut",
                     }}
-                    className={`group h-full rounded-3xl border p-7 transition-colors duration-300 hover:border-indigo-400/30 ${darkMode ? "border-white/10 bg-white/3" : "border-slate-200 bg-white"}`}
+                    className={`group h-full rounded-3xl border p-7 transition-all duration-500 ${darkMode
+                      ? "border-white/10 bg-white/3 shadow-[0_0_25px_rgba(99,102,241,0.12)] hover:border-indigo-400/30 hover:shadow-[0_0_45px_rgba(99,102,241,0.3),0_0_85px_rgba(139,92,246,0.15)]"
+                      : "border-slate-200 bg-white shadow-[0_0_20px_rgba(99,102,241,0.08)] hover:border-indigo-400/40 hover:shadow-[0_0_40px_rgba(99,102,241,0.2),0_0_75px_rgba(139,92,246,0.1)]"
+                      }`}
                   >
                     <div className="flex items-start gap-5">
                       <motion.div
@@ -909,34 +933,56 @@ export default function Home() {
       {/* Footer */}
       <footer className={`border-t ${darkMode ? "border-white/5" : "border-slate-200"}`}>
         <div className="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-8 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between lg:px-8">
-          <p>
-            © {new Date().getFullYear()} MD. TAIFUR RAHMAN JASIM. All rights
-            reserved.
+          <p
+            className={`text-center text-sm ${darkMode ? "text-slate-500" : "text-slate-500"
+              }`}
+          >
+            © {new Date().getFullYear()}{" "}
+            <span
+              className={`font-medium ${darkMode ? "text-slate-300" : "text-slate-700"
+                }`}
+            >
+              MD. TAIFUR RAHMAN JASIM
+            </span>
+            . All rights reserved.
           </p>
 
-          <div className="flex gap-5">
+          <div className="flex items-center gap-3">
             <a
               href="https://github.com/taifurrahman27"
               target="_blank"
               rel="noopener noreferrer"
-              className={`transition-colors ${darkMode
-                ? "text-slate-400 hover:text-white"
-                : "text-slate-600 hover:text-slate-900"
+              aria-label="GitHub"
+              className={`flex h-10 w-10 items-center justify-center rounded-xl border transition-all duration-300 ${darkMode
+                ? "border-white/10 bg-white/5 text-slate-400 hover:border-indigo-400/30 hover:bg-indigo-500/10 hover:text-white hover:shadow-[0_0_25px_rgba(99,102,241,0.25)]"
+                : "border-slate-200 bg-slate-50 text-slate-600 hover:border-indigo-400/40 hover:bg-indigo-50 hover:text-indigo-600 hover:shadow-[0_0_20px_rgba(99,102,241,0.15)]"
                 }`}
             >
-              GitHub
+              <FaGithub className="text-lg" />
             </a>
 
             <a
               href="https://www.linkedin.com/in/taifurrahmanjs"
               target="_blank"
               rel="noopener noreferrer"
-              className={`transition-colors ${darkMode
-                ? "text-slate-400 hover:text-white"
-                : "text-slate-600 hover:text-slate-900"
+              aria-label="LinkedIn"
+              className={`flex h-10 w-10 items-center justify-center rounded-xl border transition-all duration-300 ${darkMode
+                ? "border-white/10 bg-white/5 text-slate-400 hover:border-indigo-400/30 hover:bg-indigo-500/10 hover:text-white hover:shadow-[0_0_25px_rgba(99,102,241,0.25)]"
+                : "border-slate-200 bg-slate-50 text-slate-600 hover:border-indigo-400/40 hover:bg-indigo-50 hover:text-indigo-600 hover:shadow-[0_0_20px_rgba(99,102,241,0.15)]"
                 }`}
             >
-              LinkedIn
+              <FaLinkedinIn className="text-lg" />
+            </a>
+
+            <a
+              href="mailto:taif.jnu@gmail.com"
+              aria-label="Email"
+              className={`flex h-10 w-10 items-center justify-center rounded-xl border transition-all duration-300 ${darkMode
+                ? "border-white/10 bg-white/5 text-slate-400 hover:border-indigo-400/30 hover:bg-indigo-500/10 hover:text-white hover:shadow-[0_0_25px_rgba(99,102,241,0.25)]"
+                : "border-slate-200 bg-slate-50 text-slate-600 hover:border-indigo-400/40 hover:bg-indigo-50 hover:text-indigo-600 hover:shadow-[0_0_20px_rgba(99,102,241,0.15)]"
+                }`}
+            >
+              <HiOutlineEnvelope className="text-lg" />
             </a>
           </div>
         </div>
