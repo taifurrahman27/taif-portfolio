@@ -53,7 +53,7 @@ const projects = [
             "Stripe",
         ],
         featured: false,
-        image: "/projects/crowdfunding.png",
+        image: "/projects/crowdfunding2.png",
         github: "https://github.com/taifurrahman27/ph-b13-a011",
         live: "https://ph-b13-a011.vercel.app/",
     },
