@@ -8,7 +8,7 @@ A modern, responsive personal portfolio built with **Next.js** and **Tailwind CS
 
 ## 🚀 Live Portfolio
 
-**[Visit My Portfolio](YOUR_PORTFOLIO_URL)**
+**[Visit My Portfolio](https://taif-portfolio-three.vercel.app/)**
 
 ---
 
@@ -189,7 +189,7 @@ This is an ongoing area of learning and experimentation as I explore what's next
 
 ## 📄 Resume
 
-**[View My Resume](YOUR_RESUME_URL)**
+**[View My Resume](https://drive.google.com/file/d/1lasmGlHBHyOkFWjyzl0X5fy_GZjJDa8Q/view?usp=sharing)**
 
 ---
 
