@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 
 import FadeUp from "@/components/motion/FadeUp";
@@ -13,27 +12,18 @@ import StaggerItem from "@/components/motion/StaggerItem";
 
 import {
   HiArrowUpRight,
-  HiCodeBracket,
   HiEnvelope,
   HiMapPin,
   HiOutlineArrowDown,
   HiOutlineArrowRight,
-  HiOutlineCpuChip,
-  HiOutlineLightBulb,
-  HiSparkles,
-  HiBars3,
-  HiXMark,
-  HiOutlineEnvelope,
-  HiOutlineArrowUpRight,
 } from "react-icons/hi2";
-import ThemeToggle from "@/components/theme/ThemeTogle";
-import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 import ProjectCard from "@/components/project/ProjectCard";
 import projects from "@/data/projects";
 import SkillsSection from "@/components/skills/SkillsSection";
 import ExplorationsSection from "@/components/explorations/ExplorationsSection";
 import Footer from "@/components/footer/Footer";
 import TypewriterText from "@/components/common/TypewriterText";
+import Navbar from "@/components/navbar/Navbar";
 
 function SectionHeading({ eyebrow, title, description, darkMode }) {
   return (
@@ -116,167 +106,40 @@ export default function Home() {
         }`}
     >
       {/* Background glow */}
-      <div className="pointer-events-none fixed inset-0 -z-10">
-        <div className="absolute left-1/2 top-0 h-125 w-175 -translate-x-1/2 rounded-full bg-indigo-600/10 blur-[120px]" />
-        <div className="absolute right-0 top-[35%] h-100 w-100 rounded-full bg-violet-600/5 blur-[120px]" />
+      {/* Background glow */}
+      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+        {/* Main indigo glow */}
+        <div
+          className={`absolute left-1/2 top-0 h-125 w-175 -translate-x-1/2 rounded-full blur-[100px] ${darkMode ? "bg-indigo-600/20" : "bg-indigo-500/5"
+            }`}
+        />
+
+        {/* Blue glow */}
+        <div
+          className={`absolute left-[10%] top-[15%] h-100 w-125 rounded-full blur-[110px] ${darkMode ? "bg-blue-600/10" : "bg-blue-500/3"
+            }`}
+        />
+
+        {/* Violet glow */}
+        <div
+          className={`absolute right-[-5%] top-[30%] h-112.5 w-112.5 rounded-full blur-[100px] ${darkMode ? "bg-violet-600/15" : "bg-violet-500/4"
+            }`}
+        />
+
+        {/* Lower indigo glow */}
+        <div
+          className={`absolute bottom-[-10%] left-1/2 h-100 w-150 -translate-x-1/2 rounded-full blur-[120px] ${darkMode ? "bg-indigo-500/10" : "bg-indigo-500/3"
+            }`}
+        />
       </div>
 
       {/* Navbar */}
-      <header
-        className={`fixed left-0 right-0 top-0 z-50 border-b backdrop-blur-xl ${darkMode
-          ? "border-white/5 bg-[#050816]/80"
-          : "border-slate-200 bg-white/80"
-          }`}
-      >
-        <nav className="mx-auto max-w-7xl px-5 lg:px-8">
-          <div className="flex items-center justify-between py-4">
-            <Link
-              href="/"
-              className={`text-xl font-black tracking-tight ${darkMode ? "text-white" : "text-slate-900"}`}
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              TAIF<span className="text-indigo-400">.</span>
-            </Link>
-
-            {/* Desktop Navigation */}
-            <div className="hidden items-center gap-8 md:flex">
-              <a
-                href="#home"
-                className={`text-sm transition ${darkMode ? "text-slate-300 hover:text-white" : "text-slate-600 hover:text-slate-900"}`}
-              >
-                Home
-              </a>
-
-              <a
-                href="#about"
-                className={`text-sm transition ${darkMode ? "text-slate-300 hover:text-white" : "text-slate-600 hover:text-slate-900"}`}
-              >
-                About
-              </a>
-
-              <a
-                href="#skills"
-                className={`text-sm transition ${darkMode ? "text-slate-300 hover:text-white" : "text-slate-600 hover:text-slate-900"}`}
-              >
-                Skills
-              </a>
-
-              <a
-                href="#projects"
-                className={`text-sm transition ${darkMode ? "text-slate-300 hover:text-white" : "text-slate-600 hover:text-slate-900"}`}
-              >
-                Projects
-              </a>
-
-              <a
-                href="#exploring"
-                className={`text-sm transition ${darkMode ? "text-slate-300 hover:text-white" : "text-slate-600 hover:text-slate-900"}`}
-              >
-                Exploring
-              </a>
-
-              <a
-                href="#contact"
-                className={`text-sm transition ${darkMode ? "text-slate-300 hover:text-white" : "text-slate-600 hover:text-slate-900"}`}
-              >
-                Contact
-              </a>
-            </div>
-
-            <div className="hidden md:flex">
-              <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
-            </div>
-
-            {/* Desktop Resume */}
-            <a
-              href="/resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`group hidden items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-semibold backdrop-blur-md transition-all duration-300 sm:inline-flex md:hidden ${darkMode
-                ? "border-white/10 bg-white/5 text-slate-300 shadow-[0_0_20px_rgba(99,102,241,0.06)] hover:-translate-y-0.5 hover:border-indigo-400/30 hover:bg-indigo-500/10 hover:text-white hover:shadow-[0_8px_30px_rgba(99,102,241,0.18)]"
-                : "border-slate-200 bg-white/70 text-slate-700 shadow-[0_0_20px_rgba(99,102,241,0.05)] hover:-translate-y-0.5 hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-600 hover:shadow-[0_8px_30px_rgba(99,102,241,0.12)]"
-                }`}
-            >
-              Resume
-              <HiOutlineArrowUpRight className="text-base transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-            </a>
-
-            <a
-              href="/resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`group hidden items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-semibold backdrop-blur-md transition-all duration-300 md:inline-flex ${darkMode
-                ? "border-white/10 bg-white/5 text-slate-300 shadow-[0_0_20px_rgba(99,102,241,0.06)] hover:-translate-y-0.5 hover:border-indigo-400/30 hover:bg-indigo-500/10 hover:text-white hover:shadow-[0_8px_30px_rgba(99,102,241,0.18)]"
-                : "border-slate-200 bg-white/70 text-slate-700 shadow-[0_0_20px_rgba(99,102,241,0.05)] hover:-translate-y-0.5 hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-600 hover:shadow-[0_8px_30px_rgba(99,102,241,0.12)]"
-                }`}
-            >
-              Resume
-              <HiOutlineArrowUpRight className="text-base transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-            </a>
-
-            {/* Mobile Menu Button */}
-            <button
-              type="button"
-              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-              aria-expanded={mobileMenuOpen}
-              onClick={() => setMobileMenuOpen((open) => !open)}
-              className={`inline-flex h-10 w-10 items-center justify-center rounded-xl border transition md:hidden ${darkMode ? "border-white/10 bg-white/5 text-slate-300 hover:border-indigo-400/30 hover:bg-indigo-500/10 hover:text-white" : "border-slate-200 bg-slate-100 text-slate-700 hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-600"}`}
-            >
-              {mobileMenuOpen ? (
-                <HiXMark className="text-xl" />
-              ) : (
-                <HiBars3 className="text-xl" />
-              )}
-            </button>
-          </div>
-
-          {/* Mobile Navigation */}
-          <div
-            className={`overflow-hidden transition-all duration-300 md:hidden ${mobileMenuOpen ? "max-h-96 pb-5 opacity-100" : "max-h-0 opacity-0"
-              }`}
-          >
-            <div className={`rounded-2xl border p-3 ${darkMode ? "border-white/10 bg-white/3" : "border-slate-200 bg-white"}`}>
-              <div className="flex flex-col">
-                {[
-                  ["Home", "#home"],
-                  ["About", "#about"],
-                  ["Skills", "#skills"],
-                  ["Projects", "#projects"],
-                  ["Exploring", "#exploring"],
-                  ["Contact", "#contact"],
-                ].map(([label, href]) => (
-                  <a
-                    key={label}
-                    href={href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`rounded-xl px-4 py-3 text-sm font-medium transition ${darkMode ? "text-slate-300 hover:bg-indigo-500/10 hover:text-white" : "text-slate-600 hover:bg-indigo-50 hover:text-slate-900"}`}
-                  >
-                    {label}
-                  </a>
-                ))}
-
-                <div className="mt-2 flex justify-center">
-                  <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
-                </div>
-
-                <a
-                  href="/resume.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`group mt-2 inline-flex items-center justify-center gap-2 rounded-xl border px-4 py-3 text-sm font-semibold backdrop-blur-md transition-all duration-300 ${darkMode
-                    ? "border-indigo-400/20 bg-indigo-500/10 text-indigo-300 shadow-[0_0_20px_rgba(99,102,241,0.08)] hover:border-indigo-400/40 hover:bg-indigo-500/20 hover:text-white hover:shadow-[0_8px_30px_rgba(99,102,241,0.2)]"
-                    : "border-indigo-200 bg-indigo-50/80 text-indigo-600 shadow-[0_0_20px_rgba(99,102,241,0.06)] hover:border-indigo-300 hover:bg-indigo-100 hover:shadow-[0_8px_30px_rgba(99,102,241,0.15)]"
-                    }`}
-                >
-                  View Resume
-                  <HiOutlineArrowUpRight className="text-base transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                </a>
-              </div>
-            </div>
-          </div>
-        </nav>
-      </header>
+      <Navbar
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
+        mobileMenuOpen={mobileMenuOpen}
+        setMobileMenuOpen={setMobileMenuOpen}
+      />
 
       {/* Hero */}
       <section
