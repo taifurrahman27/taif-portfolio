@@ -37,6 +37,7 @@ const skills = {
             name: "Next.js",
             icon: SiNextdotjs,
             color: "#FFFFFF",
+            lightColor: "#111827",
         },
         {
             name: "Node.js",
@@ -47,6 +48,7 @@ const skills = {
             name: "Express.js",
             icon: SiExpress,
             color: "#FFFFFF",
+            lightColor: "#111827",
         },
         {
             name: "MongoDB",
@@ -62,6 +64,7 @@ const skills = {
             name: "GitHub",
             icon: SiGithub,
             color: "#FFFFFF",
+            lightColor: "#111827",
         },
     ],
 
@@ -91,6 +94,7 @@ const skills = {
                 },
             ],
         },
+
         {
             title: "Frontend",
             skills: [
@@ -103,6 +107,7 @@ const skills = {
                     name: "Next.js",
                     icon: SiNextdotjs,
                     color: "#FFFFFF",
+                    lightColor: "#111827",
                 },
                 {
                     name: "Redux",
@@ -123,9 +128,11 @@ const skills = {
                     name: "Framer Motion",
                     icon: SiFramer,
                     color: "#FFFFFF",
+                    lightColor: "#111827",
                 },
             ],
         },
+
         {
             title: "Backend",
             skills: [
@@ -138,6 +145,7 @@ const skills = {
                     name: "Express.js",
                     icon: SiExpress,
                     color: "#FFFFFF",
+                    lightColor: "#111827",
                 },
                 {
                     name: "REST APIs",
@@ -150,6 +158,7 @@ const skills = {
                 },
             ],
         },
+
         {
             title: "Database",
             skills: [
@@ -173,6 +182,7 @@ const skills = {
                 },
             ],
         },
+
         {
             title: "Tools",
             skills: [
@@ -185,6 +195,7 @@ const skills = {
                     name: "GitHub",
                     icon: SiGithub,
                     color: "#FFFFFF",
+                    lightColor: "#111827",
                 },
                 {
                     name: "VS Code",
@@ -196,6 +207,7 @@ const skills = {
                     name: "Vercel",
                     icon: SiVercel,
                     color: "#FFFFFF",
+                    lightColor: "#111827",
                 },
                 {
                     name: "Postman",

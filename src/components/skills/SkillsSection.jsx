@@ -96,7 +96,11 @@ function SkillsSection({ darkMode }) {
                                         {Icon ? (
                                             <Icon
                                                 className="text-2xl transition-transform duration-300 group-hover/skill:scale-110"
-                                                style={{ color: skill.color }}
+                                                style={{
+                                                    color: darkMode
+                                                        ? skill.color
+                                                        : skill.lightColor || skill.color,
+                                                }}
                                             />
                                         ) : (
                                             <span className="text-sm font-bold">
@@ -181,10 +185,19 @@ function SkillsSection({ darkMode }) {
                                             }`}
                                     >
                                         {Icon ? (
-                                            <Icon
-                                                className="text-sm"
-                                                style={{ color: skill.color }}
-                                            />
+                                            <span
+                                                className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-md ${darkMode ? "bg-white/5" : "bg-slate-100"
+                                                    }`}
+                                            >
+                                                <Icon
+                                                    className="text-sm"
+                                                    style={{
+                                                        color: darkMode
+                                                            ? skill.color
+                                                            : skill.lightColor || skill.color,
+                                                    }}
+                                                />
+                                            </span>
                                         ) : (
                                             <span className="h-1.5 w-1.5 rounded-full bg-indigo-400" />
                                         )}

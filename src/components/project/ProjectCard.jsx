@@ -282,7 +282,7 @@ function ProjectCard({ project, darkMode }) {
                                 href={project.live}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="group/live relative inline-flex h-11 items-center gap-2.5 overflow-hidden rounded-xl bg-linear-to-r from-indigo-500 to-violet-500 px-5 text-sm font-semibold text-white shadow-[0_8px_25px_rgba(99,102,241,0.22)] transition-all duration-300 hover:-translate-y-0.5 hover:from-indigo-400 hover:to-violet-400 hover:shadow-[0_12px_35px_rgba(99,102,241,0.38)]"
+                                className="group/live relative inline-flex h-11 items-center gap-2.5 overflow-hidden rounded-xl bg-linear-to-r from-indigo-500 via-violet-500 to-purple-500 px-5 text-sm font-semibold text-white shadow-[0_8px_25px_rgba(99,102,241,0.22)] transition-all duration-300 hover:-translate-y-0.5 hover:from-indigo-600 hover:via-violet-600 hover:to-purple-600  hover:shadow-[0_12px_35px_rgba(99,102,241,0.38)]"
                             >
                                 <span className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover/live:translate-x-full" />
 

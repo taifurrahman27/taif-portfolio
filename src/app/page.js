@@ -16,6 +16,7 @@ import {
   HiMapPin,
   HiOutlineArrowDown,
   HiOutlineArrowRight,
+  HiOutlineArrowUpRight,
 } from "react-icons/hi2";
 import ProjectCard from "@/components/project/ProjectCard";
 import projects from "@/data/projects";
@@ -106,7 +107,6 @@ export default function Home() {
         }`}
     >
       {/* Background glow */}
-      {/* Background glow */}
       <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
         {/* Main indigo glow */}
         <div
@@ -172,7 +172,7 @@ export default function Home() {
               MD. TAIFUR
               <br />
               RAHMAN{" "}
-              <span className="bg-linear-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-indigo-500 via-violet-500 to-purple-500 bg-clip-text text-transparent">
                 JASIM
               </span>
             </h1>
@@ -186,7 +186,7 @@ export default function Home() {
                 secondText="Software Engineer"
                 speed={60}
                 delay={500}
-                secondClassName="bg-linear-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent"
+                secondClassName="bg-linear-to-r from-indigo-500 via-violet-500 to-purple-500 to-fuchsia-400 bg-clip-text text-transparent"
               />
             </h2>
 
@@ -210,7 +210,7 @@ export default function Home() {
                     ? undefined
                     : { scale: 0.98 }
                 }
-                className="group inline-flex items-center gap-2 rounded-full bg-linear-to-r from-indigo-500 to-violet-500 px-6 py-3 font-semibold text-white shadow-[0_8px_30px_rgba(99,102,241,0.25)] transition-all duration-300 hover:from-indigo-400 hover:to-violet-400 hover:shadow-[0_12px_40px_rgba(99,102,241,0.4)]"
+                className="group inline-flex items-center gap-2 rounded-full bg-linear-to-r from-indigo-500 via-violet-500 to-purple-500 px-6 py-3 font-semibold text-white shadow-[0_8px_30px_rgba(99,102,241,0.25)] transition-all duration-300 hover:from-indigo-600 hover:via-violet-600 hover:to-purple-600 hover:shadow-[0_12px_40px_rgba(99,102,241,0.4)]"
               >
                 View Projects
                 <HiOutlineArrowRight className="text-lg transition-transform duration-300 group-hover:translate-x-1" />
@@ -375,21 +375,50 @@ export default function Home() {
           darkMode={darkMode}
         />
 
-        <div className="grid gap-6 lg:grid-cols-3">
-          <div className={`rounded-3xl border p-7 lg:col-span-2 ${darkMode ? "border-white/10 bg-white/3" : "border-slate-200 bg-white"}`}>
-            <p className={`text-lg leading-8 ${darkMode ? "text-slate-300" : "text-slate-700"}`}>
-              I am a Software Engineer and Full-Stack Web Developer with
-              hands-on experience building responsive, user-focused
-              applications using the MERN stack and modern web technologies.
-            </p>
+        <div className="grid items-stretch gap-6 lg:grid-cols-3">
+          <div
+            className={`rounded-3xl border p-7 lg:col-span-2 ${darkMode
+              ? "border-white/10 bg-white/3"
+              : "border-slate-200 bg-white"
+              }`}
+          >
+            <div className="flex h-full flex-col justify-between">
+              <div>
+                <p
+                  className={`text-lg leading-8 ${darkMode ? "text-slate-300" : "text-slate-700"
+                    }`}
+                >
+                  I am a Software Engineer and Full-Stack Web Developer with hands-on
+                  experience building responsive, user-focused applications using the MERN
+                  stack and modern web technologies. I enjoy turning ideas into polished,
+                  reliable digital experiences.
+                </p>
 
-            <p className={`mt-5 leading-8 ${darkMode ? "text-slate-400" : "text-slate-600"}`}>
-              I enjoy working across the stack—from designing interfaces and
-              building REST APIs to working with databases, authentication,
-              payments, and deployment. My goal is to join a growth-driven
-              engineering team where I can contribute, learn from experienced
-              developers, and write clean, maintainable code.
-            </p>
+                <p
+                  className={`mt-5 leading-8 ${darkMode ? "text-slate-400" : "text-slate-600"
+                    }`}
+                >
+                  I enjoy working across the stack—from designing interfaces and building
+                  REST APIs to working with databases, authentication, payments, and
+                  deployment. Projects like StudyNook, Fable, and CrowdFunding have given me
+                  practical experience building complete full-stack applications.
+                </p>
+
+                <p
+                  className={`mt-5 leading-8 ${darkMode ? "text-slate-400" : "text-slate-600"
+                    }`}
+                >
+                  I am continuously improving my problem-solving skills while exploring AI
+                  tools and MCP. My goal is to join a growth-driven engineering team where I
+                  can contribute, learn, and write clean, maintainable code.
+                </p>
+              </div>
+
+              <div
+                className={`mt-8 h-px w-full ${darkMode ? "bg-white/10" : "bg-slate-200"
+                  }`}
+              />
+            </div>
           </div>
 
           <div className={`rounded-3xl border p-7 ${darkMode ? "border-white/10 bg-white/3" : "border-slate-200 bg-white"}`}>
@@ -411,13 +440,33 @@ export default function Home() {
               Training
             </p>
 
-            <h3 className={`mt-4 text-xl font-bold ${darkMode ? "text-white" : "text-slate-900"}`}>
+            <h3
+              className={`mt-4 text-xl font-bold ${darkMode ? "text-white" : "text-slate-900"
+                }`}
+            >
               Programming Hero
             </h3>
 
-            <p className={`mt-2 text-sm leading-6 ${darkMode ? "text-slate-400" : "text-slate-600"}`}>
+            <p
+              className={`mt-2 text-sm leading-6 ${darkMode ? "text-slate-400" : "text-slate-600"
+                }`}
+            >
               Complete Web Development Course
             </p>
+
+            <a
+              href="https://drive.google.com/file/d/1kf8t7C-UKdaH5DaBFA9TaCeL8QKHUHH5/view?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`mt-4 inline-flex items-center gap-1.5 text-sm font-semibold transition-colors ${darkMode
+                ? "text-indigo-500 hover:text-indigo-400"
+                : "text-indigo-500 hover:text-indigo-600"
+                }`}
+            >
+              View Certificate
+              <HiOutlineArrowUpRight className="text-base" />
+            </a>
+            <div className={`my-7 h-px ${darkMode ? "bg-white/10" : "bg-slate-200"}`} />
           </div>
         </div>
       </section>
