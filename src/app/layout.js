@@ -28,7 +28,7 @@ export const metadata = {
   ],
   authors: [{ name: "MD. Taifur Rahman Jasim" }],
   creator: "MD. Taifur Rahman Jasim",
-  metadataBase: new URL("https://your-domain.com"),
+  metadataBase: new URL("https://taif-portfolio-three.vercel.app"),
   openGraph: {
     title: "MD. TAIFUR RAHMAN JASIM | Software Engineer",
     description:
