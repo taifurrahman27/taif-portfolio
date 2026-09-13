@@ -281,7 +281,7 @@ export default function Home() {
             >
               <div className="relative h-full overflow-hidden rounded-full">
                 <Image
-                  src="/profile.jpg"
+                  src="/profile.png"
                   alt="MD. Taifur Rahman Jasim"
                   fill
                   priority
